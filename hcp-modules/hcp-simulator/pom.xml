@@ -43,9 +43,9 @@
 
 <!--        &lt;!&ndash; Swagger UI &ndash;&gt;-->
 <!--        <dependency>-->
-<!--            <groupId>io.springfox</groupId>-->
-<!--            <artifactId>springfox-swagger-ui</artifactId>-->
-<!--            <version>${swagger.fox.version}</version>-->
+<!--            <groupId>org.springdoc</groupId>-->
+<!--            <artifactId>springdoc-openapi-ui</artifactId>-->
+<!--            <version>${springdoc.version}</version>-->
 <!--        </dependency>-->
 
         <!-- Mysql Connector -->
