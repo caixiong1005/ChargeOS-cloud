@@ -30,6 +30,33 @@ file_basePath_IS_UNDEFINED
 ### VS Code ###
 .vscode/
 logs
+*.code-workspace
+
+# -------------------- 操作系统 / 编辑器 --------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+*.swp
+*~
+.cache/
+
+# -------------------- 本项目特有垃圾文件 --------------------
+# 串口调试工具（sscom）不属于源码，勿入库
+*.exe
+*.ini
+
+# -------------------- 密钥：本地真实环境变量文件勿入库 --------------------
+# 仅保留 .env.example 作为模板；真实 .env（含口令/密钥）必须忽略
+.env
+.env.*
+!.env.example
+
+# -------------------- 前端（hcp-register console-ui / hcp-mini） --------------------
+node_modules/
 hcp-mini/node_modules/
 hcp-mini/unpackage/
-

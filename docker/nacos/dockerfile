@@ -1,5 +1,5 @@
-# 基础镜像
-FROM nacos/nacos-server
+# 基础镜像：锁定 2.3.x（与微服务 nacos-client 由 spring-cloud-alibaba 2023.0.3.2 BOM 管理的 2.3.x 对齐）
+FROM nacos/nacos-server:2.3.2
 # author
 MAINTAINER hcp
 

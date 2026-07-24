@@ -8,11 +8,30 @@ networks:
 services:
   hcp-nacos:
     container_name: hcp-nacos
-    image: nacos/nacos-server:2.0.3-slim
+    image: nacos/nacos-server:2.3.2
     build:
       context: ./nacos
     environment:
       - MODE=standalone
+      # —— 安全加固（呼应 P2）：开启 Nacos 鉴权；与 docker-compose-infra.yml 保持一致 ——
+      # Nacos 官方镜像会把 NACOS_* 环境变量追加到挂载的 application.properties 之后，故此处值会覆盖文件里写死的密钥
+      - NACOS_AUTH_ENABLE=true
+      # token 必须是 base64 且长度 >= 32 字节；用 `openssl rand -base64 32` 生成，
+      # 必须通过 .env 的 NACOS_AUTH_TOKEN 注入，生产务必替换为随机值（文件内不再保留默认值）
+      - NACOS_AUTH_TOKEN=${NACOS_AUTH_TOKEN}
+      - NACOS_AUTH_IDENTITY_KEY=${NACOS_AUTH_IDENTITY_KEY}
+      - NACOS_AUTH_IDENTITY_VALUE=${NACOS_AUTH_IDENTITY_VALUE}
+      # —— 持久化到外部 MySQL（vhcp_config 库，与 sql/hcp_config.sql 自建库名一致）；
+      #    此处用 env 覆盖挂载的 application.properties 里写死的 db.password，规避明文密码提交 ——
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=hcp-mysql
+      - MYSQL_SERVICE_DB_NAME=vhcp_config
+      - MYSQL_SERVICE_PORT=3306
+      - MYSQL_SERVICE_USER=root
+      - MYSQL_SERVICE_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - JVM_XMS=512m
+      - JVM_XMX=512m
+      - TZ=Asia/Shanghai
     volumes:
       - ./nacos/logs/:/home/nacos/logs
       - ./nacos/conf/application.properties:/home/nacos/conf/application.properties
@@ -46,8 +65,10 @@ services:
       '--lower-case-table-names=1'
     ]
     environment:
+      # 应用实际使用的业务库为 vctgo_platform（保留远端既有配置）；Nacos 配置库为 vhcp_config（由对应 SQL 脚本自建）
       MYSQL_DATABASE: 'vctgo_platform'
-      MYSQL_ROOT_PASSWORD: password
+      # 强口令：必须通过 .env 的 MYSQL_ROOT_PASSWORD 注入随机强口令（文件内不再保留默认值）
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.2
@@ -56,12 +77,13 @@ services:
     image: redis
     build:
       context: ./redis
+    # 仅绑定本机回环，便于宿主机运维；生产建议用云 Redis 并移除映射
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
     volumes:
       - ./redis/conf/redis.conf:/home/hcp/redis/redis.conf
       - ./redis/data:/data
-    command: redis-server /home/hcp/redis/redis.conf
+    command: redis-server /home/hcp/redis/redis.conf --requirepass ${REDIS_PASSWORD}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.3
@@ -98,7 +120,10 @@ services:
     environment:
       - NACOS_HOST=172.18.0.6
       - NACOS_PORT=8848
-      - NETWORK_IP=192.168.1.4
+      - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - JWT_SECRET=${JWT_SECRET}
+      - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
+      - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.5
@@ -116,7 +141,10 @@ services:
     environment:
       - NACOS_HOST=172.18.0.6
       - NACOS_PORT=8848
-      - NETWORK_IP=192.168.1.4
+      - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - JWT_SECRET=${JWT_SECRET}
+      - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
+      - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.7
@@ -137,7 +165,9 @@ services:
     environment:
       - NACOS_HOST=172.18.0.6
       - NACOS_PORT=8848
-      - NETWORK_IP=192.168.1.4
+      - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
+      - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.8
@@ -155,7 +185,9 @@ services:
     environment:
       - NACOS_HOST=172.18.0.6
       - NACOS_PORT=8848
-      - NETWORK_IP=192.168.1.4
+      - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
+      - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.9
@@ -171,7 +203,9 @@ services:
     environment:
       - NACOS_HOST=172.18.0.6
       - NACOS_PORT=8848
-      - NETWORK_IP=192.168.1.4
+      - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
+      - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.10
@@ -185,7 +219,9 @@ services:
     environment:
       - NACOS_HOST=172.18.0.6
       - NACOS_PORT=8848
-      - NETWORK_IP=192.168.1.4
+      - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
+      - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.11
@@ -206,7 +242,9 @@ services:
     environment:
       - NACOS_HOST=172.18.0.6
       - NACOS_PORT=8848
-      - NETWORK_IP=192.168.1.4
+      - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
+      - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.12
@@ -227,7 +265,9 @@ services:
     environment:
       - NACOS_HOST=172.18.0.6
       - NACOS_PORT=8848
-      - NETWORK_IP=192.168.1.4
+      - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
+      - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.13

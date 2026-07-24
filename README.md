@@ -19,7 +19,7 @@
   - SaaS二轮单车充电桩平台软硬件解决方案  
     同样进群后，群文件自取。
 
-当前版本：3.0.8
+当前版本：1.2.2
    
 [🔥 充电平台微服务源码](https://github.com/roinli/huige-ChargeOS-cloud)（当前）
    
@@ -72,7 +72,7 @@
 ### 📋 更新说明
 
 ```
-V3.0.8 更新说明
+V1.2.2 更新说明
 1、全面拥抱微服务| 支持多租户 
 2、全面拥抱引入时序数据库 
 3、支持中电联互联互通协议
@@ -245,6 +245,20 @@ Redis
 
 
 
+
+### 🔐 部署与安全（Docker）
+
+项目版本与 `pom.xml` 的 `<version>`（当前 `1.2.2`）保持一致。Docker 部署相关约定：
+
+- **Nacos 版本锁定为 `2.3.x`**：`docker/nacos/dockerfile` 与 `docker-compose*.yml` 均已固定到 `nacos/nacos-server:2.3.2`，与微服务侧 `nacos-client`（由 `spring-cloud-alibaba 2023.0.3.2` BOM 管理为 2.3.x）对齐，避免 gRPC 协议错配。
+- **密钥外部化（无明文默认值）**：`docker-compose*.yml` 中所有口令/密钥（MySQL/Redis 口令、Nacos 鉴权 token 与身份标识、JWT 密钥）均通过 `${VAR}` 从 `.env` 读取，**文件内不再保留任何明文默认值**。
+  - 部署前执行 `cp docker/.env.example docker/.env`，并把占位值替换为随机强口令（`openssl rand -base64 32`）。
+  - 真实 `.env` 已被 `.gitignore` 忽略，**切勿提交**；仅 `docker/.env.example` 作为模板入库。
+- **微服务 Nacos 账号透传**：各微服务的 `bootstrap.yml` 通过 `${NACOS_USERNAME}` / `${NACOS_PASSWORD}` 读取 Nacos 控制台账号，并在 `docker-compose.yml` 中透传，可在 `.env` 覆盖（默认 `nacos/nacos` 仅用于本地）。
+
+详细编排见 `docker/` 目录及各子工程 README。
+
+---
 
 ###  📱 系统演示
 
