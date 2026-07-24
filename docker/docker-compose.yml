@@ -166,6 +166,7 @@ services:
       - NACOS_HOST=172.18.0.6
       - NACOS_PORT=8848
       - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - JWT_SECRET=${JWT_SECRET}
       - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
     networks:
@@ -186,6 +187,7 @@ services:
       - NACOS_HOST=172.18.0.6
       - NACOS_PORT=8848
       - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - JWT_SECRET=${JWT_SECRET}
       - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
     networks:
@@ -204,6 +206,7 @@ services:
       - NACOS_HOST=172.18.0.6
       - NACOS_PORT=8848
       - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - JWT_SECRET=${JWT_SECRET}
       - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
     networks:
@@ -220,6 +223,7 @@ services:
       - NACOS_HOST=172.18.0.6
       - NACOS_PORT=8848
       - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - JWT_SECRET=${JWT_SECRET}
       - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
     networks:
@@ -243,6 +247,7 @@ services:
       - NACOS_HOST=172.18.0.6
       - NACOS_PORT=8848
       - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - JWT_SECRET=${JWT_SECRET}
       - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
     networks:
@@ -266,6 +271,7 @@ services:
       - NACOS_HOST=172.18.0.6
       - NACOS_PORT=8848
       - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - JWT_SECRET=${JWT_SECRET}
       - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
     networks:
