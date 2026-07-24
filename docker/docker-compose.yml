@@ -8,7 +8,7 @@ networks:
 services:
   hcp-nacos:
     container_name: hcp-nacos
-    image: nacos/nacos-server:2.3.2
+    image: nacos/nacos-server:2.1.1
     build:
       context: ./nacos
     environment:
@@ -46,7 +46,7 @@ services:
         ipv4_address: 172.18.0.6
   hcp-mysql:
     container_name: hcp-mysql
-    image: mysql:5.7
+    image: mysql:8.0.36
     build:
       context: ./mysql
     ports:
@@ -74,7 +74,7 @@ services:
         ipv4_address: 172.18.0.2
   hcp-redis:
     container_name: hcp-redis
-    image: redis
+    image: redis:7-alpine
     build:
       context: ./redis
     # 仅绑定本机回环，便于宿主机运维；生产建议用云 Redis 并移除映射
@@ -89,7 +89,7 @@ services:
         ipv4_address: 172.18.0.3
   hcp-nginx:
     container_name: hcp-nginx
-    image: nginx
+    image: nginx:1.27-alpine
     build:
       context: ./nginx
     ports:
