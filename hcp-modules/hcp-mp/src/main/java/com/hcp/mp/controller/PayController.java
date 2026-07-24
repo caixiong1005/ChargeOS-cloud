@@ -3,7 +3,7 @@ package com.hcp.mp.controller;
 import com.hcp.common.core.web.domain.AjaxResult;
 import com.hcp.system.api.RemoteMemberBalanceService;
 import com.hcp.system.api.domain.MenberBalance;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,7 +15,7 @@ public class PayController {
     @Resource
     private RemoteMemberBalanceService remoteMemberBalanceService;
 
-    @ApiOperation("充值接口")
+    @Operation(summary = "充值接口")
     @GetMapping("/xcxRecharge")
     public AjaxResult xcxRecharge(@RequestParam("amount") String amount,
                                   @RequestParam("userId") Long userId){

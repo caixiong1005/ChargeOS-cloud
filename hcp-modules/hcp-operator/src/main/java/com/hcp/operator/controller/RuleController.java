@@ -5,9 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hcp.common.security.utils.SecurityUtils;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.hcp.common.log.annotation.Log;
@@ -103,7 +101,7 @@ public class RuleController extends BaseController
     @RequiresPermissions("operator:rule:list")
     @Log(title = "规则价格列表", businessType = BusinessType.DELETE)
     @GetMapping("/getRulePriceList")
-    public AjaxResult getRulePriceList(@RequestParam("ruleId") @ApiParam("规则ID") int ruleId){
+    public AjaxResult getRulePriceList(@RequestParam("ruleId") @Parameter(description = "规则ID") int ruleId){
         List<Map<String,Object>> rulePriceList = ruleService.getRulePriceListById(ruleId);
         return  AjaxResult.success(rulePriceList);
     }
@@ -112,9 +110,9 @@ public class RuleController extends BaseController
     @RequiresPermissions("operator:rule:list")
     @Log(title = "运营端-复制规则", businessType = BusinessType.DELETE)
     @GetMapping("/copyRule")
-    public AjaxResult copyRule(@ApiParam("被复制的规则ID")@RequestParam("id") Long id,
-                               @ApiParam("新的规则名称")@RequestParam("changeName") String changeName,
-                               @ApiParam("代理商ID")@RequestParam(value = "userId",required = false) Long userId){
+    public AjaxResult copyRule(@Parameter(description = "被复制的规则ID")@RequestParam("id") Long id,
+                               @Parameter(description = "新的规则名称")@RequestParam("changeName") String changeName,
+                               @Parameter(description = "代理商ID")@RequestParam(value = "userId",required = false) Long userId){
         Rule rule =new Rule();
         rule.setId(id);
         rule.setChangeName(changeName);
@@ -131,7 +129,7 @@ public class RuleController extends BaseController
 
     @Log(title = "删除规则", businessType = BusinessType.DELETE)
     @DeleteMapping("/deleteRule")
-    public AjaxResult deleteRule(@ApiParam("规则ID") @RequestParam("id")int id){
+    public AjaxResult deleteRule(@Parameter(description = "规则ID") @RequestParam("id")int id){
         return ruleService.deleteRule(id);
     }
 

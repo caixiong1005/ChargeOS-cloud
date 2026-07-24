@@ -118,13 +118,6 @@
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
         </dependency>
-        <!-- 迁移期安全网：旧 io.swagger.annotations (1.6) 注解仍被部分代码引用，保留以不影响编译；
-             后续统一迁移到 io.swagger.v3.oas.annotations 后可移除 -->
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>1.6.2</version>
-        </dependency>
 
     </dependencies>
 

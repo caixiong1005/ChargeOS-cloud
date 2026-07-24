@@ -1,6 +1,6 @@
 package com.hcp.system.api.domain.vo;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -91,13 +91,13 @@ public class PlotVO implements Serializable {
     private double distance;
 
 
-    @ApiModelProperty("配套设施 1 免费WIFI 2 便利店 3 洗车 4 厕所")
+    @Schema(description = "配套设施 1 免费WIFI 2 便利店 3 洗车 4 厕所")
     private List<String> supportingFacilities;
 
-    @ApiModelProperty("停车费 0 停车收费 1 停车免费")
+    @Schema(description = "停车费 0 停车收费 1 停车免费")
     private List<String> parkCarStatus;
 
-    @ApiModelProperty("是否可以开发票,0 不可以 1 可以")
+    @Schema(description = "是否可以开发票,0 不可以 1 可以")
     private List<String> receiptStatus;
 
     private int isHlht;

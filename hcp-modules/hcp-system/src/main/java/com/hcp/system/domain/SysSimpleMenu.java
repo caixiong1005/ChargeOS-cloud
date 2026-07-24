@@ -1,29 +1,29 @@
 package com.hcp.system.domain;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.RequiredMode;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
-@ApiModel("管理后台 - 菜单精简信息")
+@Schema(description = "管理后台 - 菜单精简信息")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class SysSimpleMenu {
 
-    @ApiModelProperty(value = "菜单编号", required = true, example = "1024")
+    @Schema(description = "菜单编号", requiredMode = RequiredMode.REQUIRED, example = "1024")
     private Long id;
 
-    @ApiModelProperty(value = "菜单名称", required = true, example = "芋道")
+    @Schema(description = "菜单名称", requiredMode = RequiredMode.REQUIRED, example = "芋道")
     private String name;
 
-    @ApiModelProperty(value = "父菜单 ID", required = true, example = "1024")
+    @Schema(description = "父菜单 ID", requiredMode = RequiredMode.REQUIRED, example = "1024")
     private Long parentId;
 
-    @ApiModelProperty(value = "类型", required = true, example = "1", notes = "参见 MenuTypeEnum 枚举类")
+    @Schema(description = "类型(参见 MenuTypeEnum 枚举类)", requiredMode = RequiredMode.REQUIRED, example = "1")
     @NotNull(message = "菜单类型不能为空")
     private Integer type;
 

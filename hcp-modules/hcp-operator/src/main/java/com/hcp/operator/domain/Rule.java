@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.hcp.common.core.annotation.Excel;
 import com.hcp.common.core.web.domain.TenantEntity;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.Valid;
@@ -64,7 +64,7 @@ public class Rule extends TenantEntity
 
 
     @Valid
-    @ApiModelProperty("价格列表")
+    @Schema(description = "价格列表")
     @TableField(exist = false)
     private List<PriceVo> priceList;
 

@@ -3,7 +3,7 @@ package com.hcp.system.controller;
 import java.util.List;
 
 import com.hcp.system.domain.SysSimpleMenu;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,8 +50,7 @@ public class SysMenuController extends BaseController
     }
 
     @GetMapping("/list-all-simple")
-    @ApiOperation(value = "获取菜单精简信息列表", notes = "只包含被开启的菜单，用于【角色分配菜单】功能的选项。" +
-            "在多租户的场景下，会只返回租户所在套餐有的菜单")
+    @Operation(summary = "获取菜单精简信息列表", description = "只包含被开启的菜单，用于【角色分配菜单】功能的选项。在多租户的场景下，会只返回租户所在套餐有的菜单")
     public AjaxResult getSimpleMenus() {
         // 获得菜单列表，只要开启状态的
         List<SysSimpleMenu> menus = menuService.selectSimpleMenuList();

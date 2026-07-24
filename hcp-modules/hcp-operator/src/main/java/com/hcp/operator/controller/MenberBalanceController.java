@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hcp.common.core.domain.R;
 import com.hcp.system.api.domain.vo.MonthTotalRspVO;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.hcp.common.log.annotation.Log;
@@ -98,13 +98,13 @@ public class MenberBalanceController extends BaseController
         return toAjax(menberBalanceService.deleteMenberBalanceByIds(ids));
     }
 
-    @ApiOperation("更新用户余额")
+    @Operation(summary = "更新用户余额")
     @PostMapping("updateMemberBalance")
     public AjaxResult updateMemberBalance(@RequestBody MenberBalance menberBalance)
     {
         return toAjax(menberBalanceService.updateMenberBalance(menberBalance));
     }
-    @ApiOperation("根据用户id获取用户余额")
+    @Operation(summary = "根据用户id获取用户余额")
     @GetMapping("/info/{userId}")
     public R<MenberBalance> getMenberBalanceByUserId(@PathVariable("userId") Long userId)
     {
@@ -119,7 +119,7 @@ public class MenberBalanceController extends BaseController
     }
 
     @GetMapping("/queryMonthTotalByUserId")
-    @ApiOperation( "根据openId查看用户当月数据")
+    @Operation(summary =  "根据openId查看用户当月数据")
     public R<MonthTotalRspVO> queryMonthTotalByUserId(@RequestParam("userId") Long userId){
 
         MonthTotalRspVO vo = menberBalanceService.queryMonthTotalByUserId(userId);

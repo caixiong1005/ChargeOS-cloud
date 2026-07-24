@@ -4,8 +4,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hcp.system.api.domain.ChargingPort;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,8 +104,8 @@ public class ChargingPortController extends BaseController
     @RequiresPermissions("operator:port:edit")
     @Log(title = "端口开启或关闭", businessType = BusinessType.UPDATE)
     @PostMapping("/switchPort")
-    @ApiImplicitParam(paramType = "header",name = "token",value = "身份认证Token")
-    public AjaxResult switchPort(@ApiParam("端口id")@RequestParam Integer id, @ApiParam("开启1，关闭0")@RequestParam Integer type){
+    @Parameter(name = "token", description = "身份认证Token", in = ParameterIn.HEADER)
+    public AjaxResult switchPort(@Parameter(description = "端口id")@RequestParam Integer id, @Parameter(description = "开启1，关闭0")@RequestParam Integer type){
 
         return chargingPortService.switchPort(id,type);
     }

@@ -16,7 +16,7 @@ import com.hcp.system.api.domain.vo.ChargingPileVO;
 import com.hcp.system.api.domain.vo.PlotDetailVo;
 import com.hcp.system.api.domain.vo.PlotInfoReqVO;
 import com.hcp.system.api.domain.vo.PlotVO;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -202,7 +202,7 @@ public class ChargeController extends BaseController {
         return R.ok();
     }
     @PostMapping("/getPlotInfo")
-    @ApiOperation("查询充电桩列表")
+    @Operation(summary = "查询充电桩列表")
     public R<List<PlotVO>> getPlotInfo(@RequestBody PlotInfoReqVO plotInfoReqVO) {
 
         List<PlotVO> plotInfo = chargingPileService.getPlotInfo(plotInfoReqVO);
@@ -210,7 +210,7 @@ public class ChargeController extends BaseController {
         return R.ok(plotInfo);
     }
     @GetMapping("/queryChargingPileData")
-    @ApiOperation("查询充电桩列表")
+    @Operation(summary = "查询充电桩列表")
     public R<ChargingPileVO> queryChargingPileData(@RequestParam("pileId") String pileId) {
         ChargingPileVO chargingPileVo = chargingPileService.queryChargingPileData(pileId);
         if (ObjectUtil.isNotEmpty(chargingPileVo)){
@@ -229,7 +229,7 @@ public class ChargeController extends BaseController {
     }
 
     @PostMapping("/getPlotInfoPage")
-    @ApiOperation("分页查询充电桩列表")
+    @Operation(summary = "分页查询充电桩列表")
     R<Page<PlotVO>> getPlotInfoPage(@RequestBody PlotInfoReqVO plotInfoReqVO) {
 
         Page<PlotVO> plotInfo = chargingPileService.getPlotInfoPage(plotInfoReqVO);

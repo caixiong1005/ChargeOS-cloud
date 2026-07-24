@@ -13,7 +13,7 @@ import com.hcp.system.api.RemoteMemberService;
 import com.hcp.system.api.domain.Member;
 import com.hcp.system.api.domain.MenberBalance;
 import com.hcp.system.api.domain.vo.MonthTotalRspVO;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +37,7 @@ public class MeController extends BaseController {
     private CreditDetailService creditDetailService;
 
 
-    @ApiOperation("getMemberInfoByOpenId")
+    @Operation(summary = "getMemberInfoByOpenId")
     @GetMapping("/getMemberInfoByOpenId")
     public R<Member> getMemberInfoByOpenId(@RequestParam("openId") String openId) {
         Member user = remoteMemberService.getMemberInfoByOpenId(openId).getData();
@@ -83,7 +83,7 @@ public class MeController extends BaseController {
     }
 
     @GetMapping("/queryMonthTotalByUserId")
-    @ApiOperation( "根据userId查看用户当月数据")
+    @Operation(summary =  "根据userId查看用户当月数据")
     public R<MonthTotalRspVO> queryMonthTotalByUserId(@RequestParam("userId") Long userId){
 
         MonthTotalRspVO vo = remoteMemberBalanceService.queryMonthTotalByUserId(userId).getData();

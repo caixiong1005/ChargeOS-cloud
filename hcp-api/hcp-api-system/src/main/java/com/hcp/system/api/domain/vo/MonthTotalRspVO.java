@@ -1,6 +1,6 @@
 package com.hcp.system.api.domain.vo;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -11,12 +11,12 @@ import lombok.Data;
  */
 @Data
 public class MonthTotalRspVO {
-    @ApiModelProperty("充电度数")
+    @Schema(description = "充电度数")
     private String chargeDegree;
 
-    @ApiModelProperty("充电金额")
+    @Schema(description = "充电金额")
     private String chargeAmount;
 
-    @ApiModelProperty("充电时长")
+    @Schema(description = "充电时长")
     private String chargeTime;
 }

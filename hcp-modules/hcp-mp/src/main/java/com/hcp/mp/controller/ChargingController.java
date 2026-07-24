@@ -8,8 +8,8 @@ import com.hcp.system.api.domain.vo.ChargingPileVO;
 import com.hcp.system.api.domain.vo.PlotDetailVo;
 import com.hcp.system.api.domain.vo.PlotInfoReqVO;
 import com.hcp.system.api.domain.vo.PlotVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,20 +20,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/charging")
 @Slf4j
-@Api("充电桩列表相关接口")
+@Tag(name = "充电桩列表相关接口")
 public class ChargingController extends BaseController {
     @Resource
     private RemoteChargingService remoteChargingService;
 
     @PostMapping("/getPlotInfoPage")
-    @ApiOperation("分页查询充电桩列表")
+    @Operation(summary = "分页查询充电桩列表")
     public R<Page<PlotVO>> getPlotInfoPage(@RequestBody PlotInfoReqVO plotInfoReqVO) {
         R<Page<PlotVO>> infoPage = remoteChargingService.getPlotInfoPage(plotInfoReqVO);
         return infoPage;
     }
 
     @PostMapping("/getPlotInfo")
-    @ApiOperation("查询充电桩列表")
+    @Operation(summary = "查询充电桩列表")
     public R<List<PlotVO>> getPlotInfo(@RequestBody PlotInfoReqVO plotInfoReqVO) {
         R<List<PlotVO>> info = remoteChargingService.getPlotInfo(plotInfoReqVO);
         return info;
