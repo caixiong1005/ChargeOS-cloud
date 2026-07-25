@@ -79,7 +79,7 @@ public class Md5Utils {
             System.out.println("NoSuchAlgorithmException caught!");
             System.exit(-1);
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            log.error("MD5 encoding failed", e);
         }
 
         byte[] byteArray = messageDigest.digest();
@@ -103,9 +103,9 @@ public class Md5Utils {
             byte[] md5Byte = md.digest();
             return bytesToHex(md5Byte, isToUpperCase);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            log.error("MD5 encoding failed", e);
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            log.error("MD5 encoding failed", e);
         }
         return "";
     }

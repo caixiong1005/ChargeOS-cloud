@@ -71,7 +71,7 @@ public class LogLevelChangeConfig implements ApplicationRunner {
         try {
             mappedStatement = configuration.getMappedStatement(name);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("getMappedStatement failed, sqlId={}", name, e);
         }
         if(mappedStatement == null){
             logger.warn("SQL:--->[{}] is not exist!",name);
@@ -91,7 +91,7 @@ public class LogLevelChangeConfig implements ApplicationRunner {
             effectiveLevelInt.setInt(loggerObj , level);
             LogLevelChangeConfig.logger.info("SQL log level setting successful!");
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
+            logger.error("set SQL log level failed", e);
         }
     }
 

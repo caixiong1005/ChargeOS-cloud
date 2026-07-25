@@ -39,9 +39,9 @@ public class SwaggerAutoConfiguration
                         .description(swaggerProperties.getDescription())
                         .version(swaggerProperties.getVersion())
                         .contact(new Contact()
-                                .name(swaggerProperties.getContactName())
-                                .url(swaggerProperties.getContactUrl())
-                                .email(swaggerProperties.getContactEmail()))
+                                .name(swaggerProperties.getContact().getName())
+                                .url(swaggerProperties.getContact().getUrl())
+                                .email(swaggerProperties.getContact().getEmail()))
                         .license(new License()
                                 .name(swaggerProperties.getLicense())
                                 .url(swaggerProperties.getLicenseUrl())));

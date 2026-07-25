@@ -7,6 +7,7 @@ import com.hcp.common.core.constant.SecurityConstants;
 import com.hcp.common.core.text.Convert;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -53,6 +54,12 @@ public class JwtUtils
         {
             keyBytes = secret.getBytes(StandardCharsets.UTF_8);
         }
+        // HS256 要求密钥至少 32 字节(256 bit)；不足时给出明确错误，避免 jjwt 抛出晦涩的 WeakKeyException
+        if (keyBytes.length < 32)
+        {
+            throw new IllegalStateException(
+                    "JWT_SECRET 强度不足：HS256 要求密钥至少 32 字节(256 bit)，请使用 `openssl rand -base64 32` 生成的随机强密钥");
+        }
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
@@ -74,15 +81,23 @@ public class JwtUtils
      * 从令牌中获取数据声明
      *
      * @param token 令牌
-     * @return 数据声明
+     * @return 数据声明；令牌非法/过期/签名错误时返回 null，由调用方统一处理（如网关返回 401）
      */
     public static Claims parseToken(String token)
     {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        try
+        {
+            return Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        }
+        catch (JwtException | IllegalArgumentException e)
+        {
+            // 令牌非法/过期/签名错误：返回 null，避免网关抛出 500
+            return null;
+        }
     }
 
     /**
@@ -105,7 +120,7 @@ public class JwtUtils
     public static String getDeptId(String token)
     {
         Claims claims = parseToken(token);
-        return getValue(claims, SecurityConstants.DEPT_ID);
+        return getValue(claims, SecurityConstants.DETAILS_DEPT_ID);
     }
 
     /**
@@ -114,7 +129,7 @@ public class JwtUtils
     public static String getUserId(String token)
     {
         Claims claims = parseToken(token);
-        return getValue(claims, SecurityConstants.DETAILS);
+        return getValue(claims, SecurityConstants.DETAILS_USER_ID);
     }
 
     /**
@@ -123,11 +138,11 @@ public class JwtUtils
     public static String getUserName(String token)
     {
         Claims claims = parseToken(token);
-        return getValue(claims, SecurityConstants.USERNAME);
+        return getValue(claims, SecurityConstants.DETAILS_USERNAME);
     }
 
     public static String getValue(Claims claims, String key)
     {
-        return Convert.toStr(claims.get(key));
+        return claims == null ? null : Convert.toStr(claims.get(key));
     }
 }

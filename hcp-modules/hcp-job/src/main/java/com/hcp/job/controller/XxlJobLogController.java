@@ -2,6 +2,8 @@ package com.hcp.job.controller;
 
 import java.util.List;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.hcp.job.core.scheduler.XxlJobScheduler;
 import com.xxl.job.core.biz.ExecutorBiz;
@@ -36,6 +38,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 @RequestMapping("/log")
 public class XxlJobLogController extends BaseController
 {
+    private static final Logger logger = LoggerFactory.getLogger(XxlJobLogController.class);
     @Autowired
     private IXxlJobLogService xxlJobLogService;
 
@@ -123,7 +126,7 @@ public class XxlJobLogController extends BaseController
             }
             return logResult.getCode() == 200 ? AjaxResult.success(logResult.getContent()) : AjaxResult.error(logResult.getMsg());
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("查询任务日志详情失败", e);
         }
         return AjaxResult.error();
     }

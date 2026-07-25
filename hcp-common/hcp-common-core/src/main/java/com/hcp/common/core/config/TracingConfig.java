@@ -1,7 +1,7 @@
 package com.hcp.common.core.config;
 
-import brave.CurrentTraceContext;
 import brave.Span;
+import brave.propagation.CurrentTraceContext;
 import brave.Tracing;
 import brave.propagation.TraceContext;
 import feign.RequestInterceptor;

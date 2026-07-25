@@ -11,6 +11,8 @@ import java.nio.charset.StandardCharsets;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.ArrayUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.hcp.common.core.utils.StringUtils;
 
 /**
@@ -20,6 +22,7 @@ import com.hcp.common.core.utils.StringUtils;
  */
 public class FileUtils
 {
+    private static final Logger log = LoggerFactory.getLogger(FileUtils.class);
     /** 字符常量：斜杠 {@code '/'} */
     public static final char SLASH = '/';
 
@@ -67,7 +70,7 @@ public class FileUtils
                 }
                 catch (IOException e1)
                 {
-                    e1.printStackTrace();
+                    log.error("close stream failed", e1);
                 }
             }
             if (fis != null)
@@ -78,7 +81,7 @@ public class FileUtils
                 }
                 catch (IOException e1)
                 {
-                    e1.printStackTrace();
+                    log.error("close stream failed", e1);
                 }
             }
         }

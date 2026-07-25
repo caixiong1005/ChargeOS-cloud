@@ -66,26 +66,38 @@
             <artifactId>fastjson2</artifactId>
         </dependency>
 
-        <!-- Jwt -->
+        <!-- Jwt (显式锁定 0.11.5：分支代码使用 0.11 API，避免被 BOM 管理回 0.9.x) -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
+            <version>0.11.5</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
+            <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
+            <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Jaxb -->
+        <!-- Jaxb：保留 javax 命名空间，专供 POI 4.1.2（JDK17 已移除 JAXB，需显式提供 javax.xml.bind）。
+             升级 POI 到 5.x 后方可迁移至 jakarta.xml.bind。 -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <!-- JAXB 运行期实现（javax 命名空间），POI 4.1.2 在 JDK17 下运行时解析 OOXML 需要 -->
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.1</version>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Apache Lang3 -->
@@ -107,16 +119,22 @@
             <artifactId>poi-ooxml</artifactId>
         </dependency>
 
-        <!-- Java Servlet -->
+        <!-- Java Servlet (Jakarta，与 ServletUtils 使用的 jakarta.servlet 命名空间保持一致) -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
 
         <!-- Swagger / OpenAPI3 注解 (v3，springdoc 使用) -->
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
+        </dependency>
+
+        <!-- 链路追踪：Brave 原生 API（TracingConfig 使用 brave.*，版本由 Spring Cloud BOM 管理） -->
+        <dependency>
+            <groupId>io.zipkin.brave</groupId>
+            <artifactId>brave</artifactId>
         </dependency>
 
     </dependencies>

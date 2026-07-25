@@ -54,7 +54,7 @@
         <swagger.annotations.version>2.2.20</swagger.annotations.version>
         <jasypt.version>3.0.5</jasypt.version>
         <micrometer.tracing.version>1.2.4</micrometer.tracing.version>
-        <zipkin.reporter.version>3.0.3</zipkin.reporter.version>
+        <zipkin.reporter.version>3.5.0</zipkin.reporter.version>
         <tobato.version>1.27.2</tobato.version>
         <hutool.version>5.8.31</hutool.version>
         <kaptcha.version>2.3.3</kaptcha.version>

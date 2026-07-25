@@ -60,14 +60,14 @@ public class LinuxStateForShell {
         try {
             results[2] = (disposeFilesSystem(strings[1])).replace(" ", "");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("LinuxStateForShell error", e);
             results[2] = ("计算过程出错");
         }
         //记录cpu核心
         try {
             results[3] = strings[2];
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("LinuxStateForShell error", e);
             results[3] = ("计算过程出错");
         }
         String cpuStr = "";
@@ -75,7 +75,7 @@ public class LinuxStateForShell {
             cpuStr += strings[5].split(":")[1].split(",")[0].replace("us", "");
             cpuStr = cpuStr.trim();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("LinuxStateForShell error", e);
             cpuStr += "计算过程出错";
         }
         results[0] = cpuStr.trim();
@@ -88,7 +88,7 @@ public class LinuxStateForShell {
             //System.err.println("内存使率：" + (Arith.div(parseInt,parseInt1,4))*100 + "%");
             results[1] = ((Arith.div(parseInt, parseInt1, 1)) * 100 + "");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("LinuxStateForShell error", e);
             results[1] = "计算过程出错";
         }
         //处理对象
@@ -171,7 +171,7 @@ public class LinuxStateForShell {
                     reader.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error("LinuxStateForShell error", e);
             }
             if (channel != null) {
                 channel.disconnect();
@@ -240,7 +240,7 @@ public class LinuxStateForShell {
                 return parseInt / (1024 * 1024);
             }
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            log.error("LinuxStateForShell error", e);
             return 0;
         }
         return 0;

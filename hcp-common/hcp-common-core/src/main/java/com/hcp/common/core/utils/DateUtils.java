@@ -2,7 +2,7 @@ package com.hcp.common.core.utils;
 
 import java.lang.management.ManagementFactory;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import org.apache.commons.lang3.time.FastDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -75,14 +75,14 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils
 
     public static final String parseDateToStr(final String format, final Date date)
     {
-        return new SimpleDateFormat(format).format(date);
+        return FastDateFormat.getInstance(format).format(date);
     }
 
     public static final Date dateTime(final String format, final String ts)
     {
         try
         {
-            return new SimpleDateFormat(format).parse(ts);
+            return FastDateFormat.getInstance(format).parse(ts);
         }
         catch (ParseException e)
         {
