@@ -1,1 +1,2 @@
 com.hcp.common.core.utils.SpringUtils
+com.hcp.common.core.config.JasyptEncryptorConfig

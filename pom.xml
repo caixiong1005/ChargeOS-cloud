@@ -49,6 +49,7 @@
         <spring-boot.mybatis.plus>3.5.7</spring-boot.mybatis.plus>
         <springdoc.version>1.8.0</springdoc.version>
         <swagger.annotations.version>2.2.20</swagger.annotations.version>
+        <jasypt.version>3.0.5</jasypt.version>
         <tobato.version>1.27.2</tobato.version>
         <hutool.version>5.8.31</hutool.version>
         <kaptcha.version>2.3.3</kaptcha.version>
@@ -157,6 +158,13 @@
                 <groupId>io.swagger.core.v3</groupId>
                 <artifactId>swagger-annotations</artifactId>
                 <version>${swagger.annotations.version}</version>
+            </dependency>
+
+            <!-- Jasypt 配置加密：解密 Nacos 配置中心中的 ENC(...) 密文 -->
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt.version}</version>
             </dependency>
 
             <!-- 验证码 -->
@@ -420,6 +428,12 @@
             <version>${hutool.version}</version>
         </dependency>
 
+        <!-- Jasypt 配置加密：让所有模块都能解密 Nacos 配置中的 ENC(...) 密文 -->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -454,6 +468,19 @@
                             </goals>
                         </execution>
                     </executions>
+                </plugin>
+                <!-- Jasypt 加密命令行：mvn jasypt:encrypt-value -Djasypt.encryptor.password=$JASYPT_ENCRYPTOR_PASSWORD -Djasypt.plugin.value=明文 -->
+                <plugin>
+                    <groupId>com.github.ulisesbocchio</groupId>
+                    <artifactId>jasypt-maven-plugin</artifactId>
+                    <version>${jasypt.version}</version>
+                    <configuration>
+                        <algorithm>PBEWITHHMACSHA512ANDAES_256</algorithm>
+                        <keyObtentionIterations>1000</keyObtentionIterations>
+                        <poolSize>4</poolSize>
+                        <providerName>SunJCE</providerName>
+                        <stringOutputType>base64</stringOutputType>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
