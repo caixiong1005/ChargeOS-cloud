@@ -50,6 +50,8 @@
         <springdoc.version>1.8.0</springdoc.version>
         <swagger.annotations.version>2.2.20</swagger.annotations.version>
         <jasypt.version>3.0.5</jasypt.version>
+        <micrometer.tracing.version>1.0.4</micrometer.tracing.version>
+        <zipkin.reporter.version>2.17.0</zipkin.reporter.version>
         <tobato.version>1.27.2</tobato.version>
         <hutool.version>5.8.31</hutool.version>
         <kaptcha.version>2.3.3</kaptcha.version>
@@ -165,6 +167,23 @@
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-spring-boot-starter</artifactId>
                 <version>${jasypt.version}</version>
+            </dependency>
+
+            <!-- Micrometer Tracing（链路追踪，兼容 Spring Boot 2.7） -->
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-tracing</artifactId>
+                <version>${micrometer.tracing.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-tracing-bridge-brave</artifactId>
+                <version>${micrometer.tracing.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.zipkin.reporter2</groupId>
+                <artifactId>zipkin-reporter-brave</artifactId>
+                <version>${zipkin.reporter.version}</version>
             </dependency>
 
             <!-- 验证码 -->
@@ -432,6 +451,24 @@
         <dependency>
             <groupId>com.github.ulisesbocchio</groupId>
             <artifactId>jasypt-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- 可观测性：Prometheus 指标 + Micrometer Tracing 链路追踪（Brave 桥接 + Zipkin 上报） -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-brave</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.zipkin.reporter2</groupId>
+            <artifactId>zipkin-reporter-brave</artifactId>
         </dependency>
 
     </dependencies>

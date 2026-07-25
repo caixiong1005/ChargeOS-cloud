@@ -293,3 +293,74 @@ services:
     networks:
       cloud-net:
         ipv4_address: 172.18.0.13
+
+  # ---------------- 可观测性 & 分布式事务编排 ----------------
+  hcp-seata:
+    container_name: hcp-seata
+    image: seataio/seata-server:1.5.2
+    ports:
+      - "8091:8091"
+    environment:
+      - SEATA_PORT=8091
+      # 注册中心：Nacos（服务名 hcp-nacos）
+      - REGISTRY_TYPE=nacos
+      - REGISTRY_NACOS_APPLICATION=seata-server
+      - REGISTRY_NACOS_SERVER_ADDR=hcp-nacos:8848
+      - REGISTRY_NACOS_GROUP=SEATA_GROUP
+      - REGISTRY_NACOS_NAMESPACE=
+      - REGISTRY_NACOS_CLUSTER=default
+      # 配置中心：file（使用下方 STORE_DB_* 环境变量）
+      - CONFIG_TYPE=file
+      # 存储：DB（库 seata，表由 docker/mysql/db/seata.sql 初始化）
+      - STORE_MODE=db
+      - STORE_DB_DATASOURCE=druid
+      - STORE_DB_DB_TYPE=mysql
+      - STORE_DB_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+      - STORE_DB_URL=jdbc:mysql://hcp-mysql:3306/seata?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+      - STORE_DB_USER=root
+      - STORE_DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - STORE_DB_MIN_CONN=5
+      - STORE_DB_MAX_CONN=30
+      - STORE_DB_GLOBAL_TABLE=global_table
+      - STORE_DB_BRANCH_TABLE=branch_table
+      - STORE_DB_LOCK_TABLE=lock_table
+      - STORE_DB_DISTRIBUTED_LOCK_TABLE=distributed_lock
+    depends_on:
+      - hcp-mysql
+      - hcp-nacos
+    networks:
+      cloud-net:
+        ipv4_address: 172.18.0.14
+
+  hcp-zipkin:
+    container_name: hcp-zipkin
+    image: openzipkin/zipkin:2
+    ports:
+      - "127.0.0.1:9411:9411"
+    networks:
+      cloud-net:
+        ipv4_address: 172.18.0.16
+
+  hcp-prometheus:
+    container_name: hcp-prometheus
+    image: prom/prometheus:v2.51.0
+    volumes:
+      - ./prometheus:/etc/prometheus
+    ports:
+      - "127.0.0.1:9090:9090"
+    networks:
+      cloud-net:
+        ipv4_address: 172.18.0.15
+
+  hcp-grafana:
+    container_name: hcp-grafana
+    image: grafana/grafana:10.4.0
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      - hcp-prometheus
+    networks:
+      cloud-net:
+        ipv4_address: 172.18.0.17

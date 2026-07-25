@@ -1,0 +1,24 @@
+# 通用监控与链路追踪配置
+# 该文件位于 hcp-common-core 的 classpath 根，被所有依赖 core 的微服务继承，
+# 因此无需在每个模块的 bootstrap/application 中重复声明。
+management:
+  endpoints:
+    web:
+      exposure:
+        # prometheus 由 micrometer-registry-prometheus 提供；其余为基础端点
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+  metrics:
+    tags:
+      # 每个应用的指标自动打上应用名标签，便于在 Prometheus/Grafana 中区分服务
+      application: ${spring.application.name:chargeos}
+  tracing:
+    enabled: true
+    sampling:
+      # 采样率 1.0 = 全量采集；生产可按需调低（如 0.1）
+      probability: 1.0
+    zipkin:
+      # Zipkin 收集端；docker 编排下为 hcp-zipkin，可用环境变量 ZIPKIN_ENDPOINT 覆盖
+      endpoint: ${ZIPKIN_ENDPOINT:http://hcp-zipkin:9411/api/v2/spans}

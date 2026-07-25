@@ -1,0 +1,31 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # 各微服务的 Spring Boot Actuator Prometheus 端点
+  - job_name: 'hcp-services'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - 'hcp-gateway:38080'
+          - 'hcp-auth:39200'
+          - 'hcp-system:39201'
+          - 'hcp-gen:39202'
+          - 'hcp-file:39300'
+          - 'hcp-monitor:39100'
+          - 'hcp-demo:39203'
+          - 'hcp-job:39204'
+        labels:
+          group: 'chargeos'
+
+  # Nacos 自带 metrics 端点
+  - job_name: 'hcp-nacos'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['hcp-nacos:8848']
+
+  # Prometheus 自身
+  - job_name: 'hcp-prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
