@@ -23,5 +23,12 @@
             <artifactId>hcp-common-security</artifactId>
         </dependency>
 
+        <!-- Servlet API（jakarta，SB3）：LogAspect 直接使用；spring-webmvc 传递的为 provided 不向下传递，故显式声明。运行期由 web 容器/spring-boot-starter-web 提供 -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 </project>

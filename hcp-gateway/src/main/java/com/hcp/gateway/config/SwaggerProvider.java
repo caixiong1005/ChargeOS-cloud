@@ -3,8 +3,8 @@ package com.hcp.gateway.config;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.annotation.PostConstruct;
-import org.springdoc.core.models.SwaggerUrl;
-import org.springdoc.webflux.ui.SwaggerUiConfigParameters;
+import org.springdoc.core.properties.AbstractSwaggerUiConfigProperties;
+import org.springdoc.core.properties.SwaggerUiConfigParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.gateway.config.GatewayProperties;
@@ -57,7 +57,7 @@ public class SwaggerProvider
                                     .get(NameUtils.GENERATED_NAME_PREFIX + "0")
                                     .replace("/**", SWAGGER3URL);
                             swaggerUiConfigParameters.getUrls()
-                                    .add(new SwaggerUrl(location, routeDefinition.getId()));
+                                    .add(new AbstractSwaggerUiConfigProperties.SwaggerUrl(location, routeDefinition.getId(), routeDefinition.getId()));
                         }));
     }
 }

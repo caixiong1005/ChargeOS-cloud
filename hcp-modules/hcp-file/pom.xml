@@ -104,6 +104,13 @@
         <dependency>
             <groupId>com.baidubce</groupId>
             <artifactId>bce-java-sdk</artifactId>
+            <exclusions>
+                <!-- JDK17 已无 tools.jar；jdk.tools 由 hadoop-common 传递引入且指向不存在的 system path，编译期不需要 -->
+                <exclusion>
+                    <groupId>jdk.tools</groupId>
+                    <artifactId>jdk.tools</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.minio</groupId>

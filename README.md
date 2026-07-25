@@ -1,48 +1,48 @@
 
 
-[🔥 Github的代码优先于Gitee   https://github.com/roinli/huige-ChargeOS-cloud](https://github.com/roinli/huige-ChargeOS-cloud)
 
 
 
-## 开源版本一定不会很完美，不过会一直持续更新，如果遇到任何问题请提issue或者加群沟通解决，谢谢。
+
+如有问题请提交 issue 或联系技术支持。
 
 ## 社区版
 
-- 微信交流群：**jinglidream**  
-  （进群前，记得先在网页右上角点亮 `star`）
+- 技术支持：  
+  
 
 - 资源1：模拟桩模块源码  
-  加入交流群，在群文件即可自行下载，欢迎一起交流探讨。
+  详见项目文档与发布说明。
 
 - 资源2：两份专业方案PPT
   - SaaS汽车充电桩平台软硬件解决方案
   - SaaS二轮单车充电桩平台软硬件解决方案  
-    同样进群后，群文件自取。
+    详见项目资料。
 
 当前版本：1.2.2
    
-[🔥 充电平台微服务源码](https://github.com/roinli/huige-ChargeOS-cloud)（当前）
+充电平台微服务源码（本仓库）
    
-[🔥 充电管理后台前端源码](https://github.com/roinli/HUIZHI-ChargeOS-admin)
+充电管理后台前端源码（CTI-ChargeOS-admin）
    
-[🔥 充电小程序源码](https://github.com/roinli/HUIZHI-ChargeOS-mini) 
+充电小程序源码（CTI-ChargeOS-mini） 
 
-[🔥 更新日志](https://blog.csdn.net/Roinli?spm=1000.2115.3001.5343) 
+更新日志 
 <div align="center">
 
-##   （慧哥）慧知开源充电桩平台
+## CTI 充电运营平台
 
 </div>
 
 <div align="center" >
-    <a href="http://wenhui.huizhidata.com">
+    <a href="#">
         <img src="https://img.shields.io/badge/Licence-GPL3.0-green.svg?style=flat" />
     </a>
-    <a href="http://wenhui.huizhidata.com">
-        <img src="https://img.shields.io/badge/Edition-5.2-blue.svg" />
+    <a href="#">
+        <img src="https://img.shields.io/badge/Edition-1.2.2-blue.svg" />
     </a>
-     <a href="https://github.com/roinli/huige-ChargeOS-cloud/repository/archive/master.zip">
-        <img src="https://img.shields.io/badge/Download-240m-red.svg" />
+    <a href="#">
+        <img src="https://img.shields.io/badge/CTI-ChargeOS-orange.svg" />
     </a>
 </div>
 
@@ -50,14 +50,12 @@
 
 <div  align="center" >
 
-[官网](http://wenhui.huizhidata.com/) |
-[在线体验](http://hzqc-pc.huizhidata.com/) |
-[http://doc.huizhidata.com 帮助文档](http://doc.huizhidata.com) |
+官网 | 在线体验 | 帮助文档
 
-[comment]: <> ([宽屏预览]&#40;https://github.com/roinli/huige-ChargeOS-cloud/blob/master/README.md&#41;)
+
 </div>
 <div align="left" >
-<a href="https://github.com/roinli/huige-ChargeOS-cloud/blob/master/README.md">宽屏预览</a>
+宽屏预览
 </div>
 
 
@@ -94,11 +92,11 @@ V1.2.2 更新说明
 ---
 
 ### 📝 介绍
-（慧哥）慧知开源充电桩平台是一款全开源可商用的系统，前后端分离开发，在小程序、公众号、H5、APP、PC端都能用，使用方便，二开方便！安装使用也很简单！使用文档、接口文档、数据字典、二开文档，就算你是技术小白，也能轻松上手！
+CTI 充电运营平台是一款全开源可商用的系统，前后端分离开发，在小程序、公众号、H5、APP、PC端都能用，使用方便，二开方便！安装使用也很简单！使用文档、接口文档、数据字典、二开文档，就算你是技术小白，也能轻松上手！
 
-欢迎大家来体验、来提建议，来一起让 慧知开源充电桩平台 更强大，让更多开发者受益！虽然是开源，但我们该有的功能全都有！
+欢迎大家来体验、来提建议，来一起让 CTI 充电运营平台 更强大，让更多开发者受益！虽然是开源，但我们该有的功能全都有！
 
-慧知开源充电桩平台 hcp-cloud 是一个基于 Spring Cloud 微服务架构的开源充电桩运营平台，专为现代化充电桩管理和运营需求设计。该平台包含两个主要部分：运营管理端和小程序端，旨在提供灵活、高效、可扩展的解决方案，助力企业和服务提供商简化充电桩运营管理。  
+CTI 充电运营平台（hcp-cloud）是一个基于 Spring Cloud 微服务架构的开源充电桩运营平台，专为现代化充电桩管理和运营需求设计。该平台包含两个主要部分：运营管理端和小程序端，旨在提供灵活、高效、可扩展的解决方案，助力企业和服务提供商简化充电桩运营管理。  
 
 #### 📝 核心功能：
 * 微服务架构：基于 Spring Cloud 的微服务架构，hcp-cloud 能够实现各模块的独立部署和扩展，提升系统的可靠性和可维护性，同时支持弹性伸缩，适应多变的市场需求。
@@ -111,16 +109,16 @@ V1.2.2 更新说明
 ### 🖥 +v:18601938676 如果您也对开源感兴趣，欢迎加入群 ,加群请注明原因，开源、共享、共赢永远是主旋律。
 
 
-![输入图片说明](doc/huizhi/images/我的.png)
+![输入图片说明](doc/cti/images/我的.png)
 
 
 ### 📝 UI界面展示
 
 |                                                         |                                                            |
 |---------------------------------------------------------|------------------------------------------------------------|
-| ![小程序首页.png](doc/huizhi/intro//小程序首页.png) | ![充电口.png](doc/huizhi/intro//电站详情.png)      |
-| ![开始充电.png](doc/huizhi/intro//开始充电.png)   | ![充电中.png](doc/huizhi/intro//充电中.png)       |
-| ![我的信息.png](doc/huizhi/intro//我的信息.png)   | ![我的订单.png](doc/huizhi/intro//我的订单.png)      |
+| ![小程序首页.png](doc/cti/intro//小程序首页.png) | ![充电口.png](doc/cti/intro//电站详情.png)      |
+| ![开始充电.png](doc/cti/intro//开始充电.png)   | ![充电中.png](doc/cti/intro//充电中.png)       |
+| ![我的信息.png](doc/cti/intro//我的信息.png)   | ![我的订单.png](doc/cti/intro//我的订单.png)      |
 
 ---
 
@@ -150,9 +148,9 @@ V1.2.2 更新说明
 | 监控框架    | SpringBoot-Admin    | [SpringBoot-Admin文档](https://codecentric.github.io/spring-boot-admin/current/)                           | 全方位服务监控                                                                                                                                         |
 | 校验框架    | Validation          | [Validation文档](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/)           | 增强接口安全性、严谨性 支持国际化                                                                                                                               |
 | Excel框架 | Alibaba EasyExcel   | [EasyExcel文档](https://www.yuque.com/easyexcel/doc/easyexcel)                                             | 性能优异 扩展性强                                                                                                                                       |
-| 文档框架    | SpringDoc、javadoc   | [接口文档](https://github.com/roinli/HUIZHI-ChargeOS-cloud2/wikis/pages?sort_id=5805266&doc_id=1469725)               | 无注解零入侵基于java注释                                                                                                                                  |
+| 文档框架    | SpringDoc、javadoc   | [接口文档](#)               | 无注解零入侵基于java注释                                                                                                                                  |
 | 工具类框架   | Hutool、Lombok       | [Hutool文档](https://www.hutool.cn/docs/)                                                                  | 减少代码冗余 增加安全性                                                                                                                                    |
-| 代码生成器   | 适配MP、SpringDoc规范化代码 | [代码生成文档](https://github.com/roinli/HUIZHI-ChargeOS-cloud2/wikis/pages?sort_id=5522329&doc_id=1469725)             | 只需设计好表结构 一键生成所有crud代码与页面<br/>降低80%的开发量 把精力都投入到业务设计上<br/>框架为其适配MP、SpringDoc规范化代码 同时支持动态多数据源代码生成                                                  |
+| 代码生成器   | 适配MP、SpringDoc规范化代码 | [代码生成文档](#)             | 只需设计好表结构 一键生成所有crud代码与页面<br/>降低80%的开发量 把精力都投入到业务设计上<br/>框架为其适配MP、SpringDoc规范化代码 同时支持动态多数据源代码生成                                                  |
 | 部署方式    | Docker              | [Docker文档](https://docs.docker.com/)                                                                     | 基于请求头动态返回不同语种的文本内容 开发难度低 有对应的工具类 支持大部分注解内容国际化                                                                                                   |
 | 国际化     | SpringMessage       | [SpringMVC文档](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc)          | Spring标准国际化方案                                              
 
@@ -160,7 +158,7 @@ V1.2.2 更新说明
 
 ###  📖 业务交互图
 
-![输入图片说明](doc/huizhi/images/核心功能2.png)
+![输入图片说明](doc/cti/images/核心功能2.png)
 
 
 ---
@@ -237,8 +235,8 @@ V1.2.2 更新说明
 ```
 MQ
 Netty
-JDK1.8
-SrpingCloud
+Java 17   (Spring Boot 3.2.4 / Spring Cloud 2023.0.1 要求，非 JDK1.8)
+SpringCloud
 MySQL 5.7 ～ 8.0
 Redis
 ```
@@ -250,7 +248,7 @@ Redis
 
 项目版本与 `pom.xml` 的 `<version>`（当前 `1.2.2`）保持一致。Docker 部署相关约定：
 
-- **Nacos 版本锁定为 `2.1.1`**：`docker/nacos/dockerfile` 与 `docker-compose*.yml` 均已固定到 `nacos/nacos-server:2.1.1`，与微服务侧 `nacos-client`（pom 中 `alibaba.nacos.version=2.1.1`，由 `spring-cloud-alibaba 2021.0.5.0` 管理）对齐，避免 gRPC 协议错配。
+- **Nacos 版本**：docker 编排中 `nacos/nacos-server` 固定为 `2.1.1`（`docker/nacos/dockerfile`、`docker-compose*.yml`），而微服务侧 `nacos-client` 由 `pom.xml` 的 `alibaba.nacos.version=2.3.2`（`spring-cloud-alibaba 2023.0.1.0` 管理）引入。⚠️ 两者版本不一致（server 2.1.1 / client 2.3.2），部署前需核对 gRPC 兼容性。
 - **密钥外部化（无明文默认值）**：`docker-compose*.yml` 中所有口令/密钥（MySQL/Redis 口令、Nacos 鉴权 token 与身份标识、JWT 密钥）均通过 `${VAR}` 从 `.env` 读取，**文件内不再保留任何明文默认值**。
   - 部署前执行 `cp docker/.env.example docker/.env`，并把占位值替换为随机强口令（`openssl rand -base64 32`）。
   - 真实 `.env` 已被 `.gitignore` 忽略，**切勿提交**；仅 `docker/.env.example` 作为模板入库。
@@ -263,13 +261,13 @@ Redis
 ###  📱 系统演示
 
 
-演示系统：慧知开源充电桩管理平台： http://hzqc-pc.huizhidata.com/
+演示系统：CTI 充电运营管理平台（请联系管理员获取访问地址）
 
 账号：demo1010 密码：admin123456
 
 小程序端：
 
-![输入图片说明](doc/huizhi/images/二维码以及小程序二维码1.jpg)
+![输入图片说明](doc/cti/images/二维码以及小程序二维码1.jpg)
 
 
 ---
@@ -277,7 +275,7 @@ Redis
 
 ###  🔐 安装教程(如何安装部署)
 
-想要快速安装，教程来助攻！<a href="http://doc.huizhidata.com" target="_blank">请参考每个工程都有READEME.md文档（详细部署文档）  查看安装教程！</a>
+想要快速安装，教程来助攻！<a href="#" target="_blank">请参考每个工程都有 READEME.md 文档（详细部署文档）查看安装教程！</a>
 
 
 
@@ -290,7 +288,7 @@ Redis
 
 
 
-![输入图片说明](doc/huizhi/images/核心功能1.png)
+![输入图片说明](doc/cti/images/核心功能1.png)
 
 
 
@@ -300,19 +298,19 @@ Redis
 
 |                                                         |                                                            |
 |---------------------------------------------------------|------------------------------------------------------------|
-| ![登录页.png](doc/huizhi/intro/登录页.png)             | ![运营管理.png](doc/huizhi/intro//运营管理.png)     |
-| ![站点信息.png](doc/huizhi/intro//站点信息.png) | ![充电桩.png](doc/huizhi/intro//充电桩.png)       |
-| ![模拟充电桩.png](doc/huizhi/intro//模拟充电桩.png) | ![充电口.png](doc/huizhi/intro//充电口.png)       |
-| ![互联互通.png](doc/huizhi/intro//互联互通.png) | ![订单.png](doc/huizhi/intro//订单.png)         |
-| ![充电订单.png](doc/huizhi/intro//充电订单.png) | ![小程序用户.png](doc/huizhi/intro//小程序用户.png)   |
-| ![计费规则.png](doc/huizhi/intro//计费规则.png) | ![修改计费规则.png](doc/huizhi/intro//修改计费规则.png)   |
-| ![微信小程序.png](doc/huizhi/intro//微信小程序.png) | ![租户套餐.png](doc/huizhi/intro//租户套餐.png)   |
-| ![租户管理.png](doc/huizhi/intro//租户管理.png) | ![对象存储配置.png](doc/huizhi/intro//对象存储配置.png)   |
-| ![用户管理.png](doc/huizhi/intro//用户管理.png) | ![菜单管理.png](doc/huizhi/intro//菜单管理.png)   |
-| ![角色管理.png](doc/huizhi/intro//角色管理.png) | ![部门管理.png](doc/huizhi/intro//部门管理.png)  |
-| ![岗位管理.png](doc/huizhi/intro//岗位管理.png) | ![字典管理.png](doc/huizhi/intro//字典管理.png) |
-| ![参数设置.png](doc/huizhi/intro//参数设置.png) | ![通知公告.png](doc/huizhi/intro//通知公告.png)   |
-| ![操作日志.png](doc/huizhi/intro//操作日志.png) | ![登录日志.png](doc/huizhi/intro//登录日志.png)   |
+| ![登录页.png](doc/cti/intro/登录页.png)             | ![运营管理.png](doc/cti/intro//运营管理.png)     |
+| ![站点信息.png](doc/cti/intro//站点信息.png) | ![充电桩.png](doc/cti/intro//充电桩.png)       |
+| ![模拟充电桩.png](doc/cti/intro//模拟充电桩.png) | ![充电口.png](doc/cti/intro//充电口.png)       |
+| ![互联互通.png](doc/cti/intro//互联互通.png) | ![订单.png](doc/cti/intro//订单.png)         |
+| ![充电订单.png](doc/cti/intro//充电订单.png) | ![小程序用户.png](doc/cti/intro//小程序用户.png)   |
+| ![计费规则.png](doc/cti/intro//计费规则.png) | ![修改计费规则.png](doc/cti/intro//修改计费规则.png)   |
+| ![微信小程序.png](doc/cti/intro//微信小程序.png) | ![租户套餐.png](doc/cti/intro//租户套餐.png)   |
+| ![租户管理.png](doc/cti/intro//租户管理.png) | ![对象存储配置.png](doc/cti/intro//对象存储配置.png)   |
+| ![用户管理.png](doc/cti/intro//用户管理.png) | ![菜单管理.png](doc/cti/intro//菜单管理.png)   |
+| ![角色管理.png](doc/cti/intro//角色管理.png) | ![部门管理.png](doc/cti/intro//部门管理.png)  |
+| ![岗位管理.png](doc/cti/intro//岗位管理.png) | ![字典管理.png](doc/cti/intro//字典管理.png) |
+| ![参数设置.png](doc/cti/intro//参数设置.png) | ![通知公告.png](doc/cti/intro//通知公告.png)   |
+| ![操作日志.png](doc/cti/intro//操作日志.png) | ![登录日志.png](doc/cti/intro//登录日志.png)   |
 
 <style>
   .has-sidebar.has-aside .aside{
@@ -325,28 +323,27 @@ Redis
 </style>
 |                                                         |                                                            |
 |---------------------------------------------------------|------------------------------------------------------------|
-| ![小程序首页.png](doc/huizhi/intro//小程序首页.png) | ![充电口.png](doc/huizhi/intro//电站详情.png)      |
-| ![开始充电.png](doc/huizhi/intro//开始充电.png)   | ![充电中.png](doc/huizhi/intro//充电中.png)       |
-| ![我的信息.png](doc/huizhi/intro//我的信息.png)   | ![我的订单.png](doc/huizhi/intro//我的订单.png)      |
+| ![小程序首页.png](doc/cti/intro//小程序首页.png) | ![充电口.png](doc/cti/intro//电站详情.png)      |
+| ![开始充电.png](doc/cti/intro//开始充电.png)   | ![充电中.png](doc/cti/intro//充电中.png)       |
+| ![我的信息.png](doc/cti/intro//我的信息.png)   | ![我的订单.png](doc/cti/intro//我的订单.png)      |
 
 ---
 
 ###  📖 支持直流交流（云快充1.6/1.5）
 
-![输入图片说明](doc/huizhi/images/硬件/硬件1.jpg)
-![输入图片说明](doc/huizhi/images/硬件/硬件2.jpg)
-![输入图片说明](doc/huizhi/images/硬件/硬件3.png)
+![输入图片说明](doc/cti/images/硬件/硬件1.jpg)
+![输入图片说明](doc/cti/images/硬件/硬件2.jpg)
+![输入图片说明](doc/cti/images/硬件/硬件3.png)
 
 ---
 
 
 ###  📻 感谢参与开发者
-#### 感谢大神们提交代码（排名不分先后）
-文哥、小兵、亮亮、喜峰、周强、单单
+感谢所有为项目贡献代码的开发者。
 
-欢迎<a href="https://github.com/roinli/huige-ChargeOS-cloud/issues" target="_blank">反馈问题</a>
+欢迎<a href="#">反馈问题</a>
 
-欢迎<a href="https://github.com/roinli/huige-ChargeOS-cloud/issues" target="_blank">提交代码</a>
+欢迎<a href="#">提交代码</a>
 
 ---
 ###  📸 特别鸣谢
@@ -355,37 +352,31 @@ Redis
 
 ---
 ###  🎬 核心开发团队
-产品：慧哥
+产品：CTI
 
-技术：慧哥、李小佩、小吕哥、王小春、周强、单单、于强、明哥、小杨
+技术：CTI 研发团队
 
-UI：ZLY、ZMD
+UI：CTI 设计团队
 
-测试：冬天、蜗牛、小强
+测试：CTI 测试团队
 
-硬件：亮哥、峰哥
+硬件：CTI 硬件团队
 
 
 ---
-###  📺 使用须知
-1、允许用于个人学习、毕业设计、教学案例、公益事业、商业使用；
-
-2、如果商用必须保留版权信息，请自觉遵守；
-
-3、禁止将本项目的代码和资源进行任何形式的出售，产生的一切任何后果责任由侵权者自负；
-
-4、商业使用,请保留icon/logo,如否,产生的一切任何后果责任由侵权者自负；
+###  📺 开源许可
+本项目基于 GPL-3.0 许可开源，版权与许可条款详见仓库根目录 LICENSE 文件。商业使用请遵守 GPL-3.0 相关规定。
 
 ---
 ###  💾 版权信息
 
 本项目包含的第三方源码和二进制文件之版权信息另行标注。
 
-版权所有Copyright © 2017-2025 by wenhui (http://wenhui.huizhidata.com)
+版权所有 © 2017-2025 CTI。本项目基于 GPL-3.0 许可开源，详见仓库 LICENSE 文件。
 
 All rights reserved。
 
 ---
 
-[返回顶部 :fa-arrow-circle-up: ](https://github.com/roinli/huige-ChargeOS-cloud)
+[返回顶部](#)
 
