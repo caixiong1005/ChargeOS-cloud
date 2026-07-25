@@ -3,7 +3,7 @@ package com.hcp.common.security.service;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.hcp.common.core.utils.ip.AddressUtils;

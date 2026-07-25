@@ -1,7 +1,7 @@
 package com.hcp.common.security.interceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.hcp.common.security.auth.AuthUtil;
 import org.slf4j.Logger;

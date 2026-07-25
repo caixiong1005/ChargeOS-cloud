@@ -40,25 +40,29 @@
         <hcp.version>1.2.2</hcp.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <spring-boot.version>2.7.18</spring-boot.version>
-        <spring-cloud.version>2021.0.8</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
-        <alibaba.nacos.version>2.1.1</alibaba.nacos.version>
-        <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
+        <java.version>17</java.version>
+        <!-- 独立 parent（非 spring-boot-starter-parent），需显式指定编译器级别为 17（SB3 最低要求） -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <spring-boot.version>3.2.4</spring-boot.version>
+        <spring-cloud.version>2023.0.1</spring-cloud.version>
+        <spring-cloud-alibaba.version>2023.0.1.0</spring-cloud-alibaba.version>
+        <alibaba.nacos.version>2.3.2</alibaba.nacos.version>
+        <spring-boot-admin.version>3.2.3</spring-boot-admin.version>
         <spring-boot.mybatis.plus>3.5.7</spring-boot.mybatis.plus>
-        <springdoc.version>1.8.0</springdoc.version>
+        <springdoc.version>2.5.0</springdoc.version>
         <swagger.annotations.version>2.2.20</swagger.annotations.version>
         <jasypt.version>3.0.5</jasypt.version>
-        <micrometer.tracing.version>1.0.4</micrometer.tracing.version>
-        <zipkin.reporter.version>2.17.0</zipkin.reporter.version>
+        <micrometer.tracing.version>1.2.4</micrometer.tracing.version>
+        <zipkin.reporter.version>3.0.3</zipkin.reporter.version>
         <tobato.version>1.27.2</tobato.version>
         <hutool.version>5.8.31</hutool.version>
         <kaptcha.version>2.3.3</kaptcha.version>
         <pagehelper.boot.version>1.4.7</pagehelper.boot.version>
-        <alibaba.seata.version>1.5.1</alibaba.seata.version>
-        <druid.version>1.2.16</druid.version>
-        <dynamic-ds.version>3.5.2</dynamic-ds.version>
+        <alibaba.seata.version>2.0.0</alibaba.seata.version>
+        <lombok.version>1.18.30</lombok.version>
+        <druid.version>1.2.21</druid.version>
+        <dynamic-ds.version>4.2.0</dynamic-ds.version>
         <commons.io.version>2.13.0</commons.io.version>
         <velocity.version>2.3</velocity.version>
         <fastjson.version>2.0.43</fastjson.version>
@@ -85,6 +89,15 @@
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
+
+            <!-- SpringBoot 依赖配置（必须最先导入，供 Spring Cloud / Alibaba 覆盖其托管的 Boot 构件版本） -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <!-- SpringCloud 微服务 -->
             <dependency>
@@ -116,15 +129,6 @@
                 <groupId>io.seata</groupId>
                 <artifactId>seata-spring-boot-starter</artifactId>
                 <version>${alibaba.seata.version}</version>
-            </dependency>
-
-            <!-- SpringBoot 依赖配置 -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
             </dependency>
 
             <dependency>

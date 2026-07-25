@@ -1,6 +1,6 @@
 package com.hcp.common.security.utils;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.hcp.common.core.constant.SecurityConstants;

@@ -1,6 +1,6 @@
 package com.hcp.auth.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import com.hcp.auth.form.LoginBody;
 import com.hcp.auth.form.RegisterBody;

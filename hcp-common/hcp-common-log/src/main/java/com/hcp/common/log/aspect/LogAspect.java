@@ -2,8 +2,8 @@ package com.hcp.common.log.aspect;
 
 import java.util.Collection;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.hcp.common.log.annotation.Log;
 import com.hcp.common.log.filter.PropertyPreExcludeFilter;

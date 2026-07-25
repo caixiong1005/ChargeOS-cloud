@@ -31,8 +31,8 @@ services:
       - --default-time-zone=+8:00
       - --lower-case-table-names=1
     environment:
-      # 业务默认库占位；真正的业务库(hcp_cloud/vhcp_config 等)与 Nacos 库(nacos_config)由 init SQL 自建
-      MYSQL_DATABASE: 'hcp_cloud'
+      # 业务默认库占位；真正的业务库(vctgo_platform/vhcp_config 等)与 Nacos 库(nacos_config)由 init SQL 自建
+      MYSQL_DATABASE: 'vctgo_platform'
       # 强口令：生产务必用环境变量 MYSQL_ROOT_PASSWORD 注入随机强口令（文件内不再保留默认值）
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       TZ: Asia/Shanghai

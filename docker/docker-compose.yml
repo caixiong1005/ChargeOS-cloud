@@ -297,7 +297,7 @@ services:
   # ---------------- 可观测性 & 分布式事务编排 ----------------
   hcp-seata:
     container_name: hcp-seata
-    image: seataio/seata-server:1.5.2
+    image: seataio/seata-server:2.0.0
     ports:
       - "8091:8091"
     environment:

@@ -27,7 +27,7 @@ import com.hcp.common.core.text.Convert;
 import com.hcp.common.core.utils.ServletUtils;
 import com.hcp.common.mybatisplus.constant.MybatisPageConstants;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 

@@ -6,7 +6,7 @@ import com.hcp.system.api.domain.MenberBalance;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.math.BigDecimal;
 
 @RestController

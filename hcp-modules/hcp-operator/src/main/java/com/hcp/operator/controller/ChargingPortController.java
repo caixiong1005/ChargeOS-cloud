@@ -1,7 +1,7 @@
 package com.hcp.operator.controller;
 
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.hcp.system.api.domain.ChargingPort;
 import io.swagger.v3.oas.annotations.Parameter;

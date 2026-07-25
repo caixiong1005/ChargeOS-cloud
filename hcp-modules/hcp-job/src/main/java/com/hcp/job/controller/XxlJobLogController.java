@@ -1,7 +1,7 @@
 package com.hcp.job.controller;
 
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.hcp.job.core.scheduler.XxlJobScheduler;
 import com.xxl.job.core.biz.ExecutorBiz;

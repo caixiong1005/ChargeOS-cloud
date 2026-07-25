@@ -25,4 +25,12 @@
         hcp-modules业务模块
     </description>
 
+    <dependencies>
+        <!-- 启用 bootstrap.yml（Spring Boot 3.x 默认禁用 bootstrap context；Nacos 配置经 bootstrap.yml 加载） -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

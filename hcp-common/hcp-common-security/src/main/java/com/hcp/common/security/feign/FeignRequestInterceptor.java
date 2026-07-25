@@ -2,7 +2,7 @@ package com.hcp.common.security.feign;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 
 import com.hcp.common.core.context.SecurityContextHolder;

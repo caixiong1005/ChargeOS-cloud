@@ -3,8 +3,8 @@ package com.hcp.job.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.hcp.common.core.utils.StringUtils;
 import com.hcp.job.core.thread.JobScheduleHelper;

@@ -5,7 +5,7 @@
  Source Server Type    : MySQL
  Source Server Version : 80042
  Source Host           : 47.121.180.170:3306
- Source Schema         : hcp_cloud_dev
+ Source Schema         : vctgo_platform_dev
 
  Target Server Type    : MySQL
  Target Server Version : 80042

@@ -2,7 +2,7 @@ package com.hcp.gateway.config;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import org.springdoc.core.models.SwaggerUrl;
 import org.springdoc.webflux.ui.SwaggerUiConfigParameters;
 import org.springframework.beans.factory.annotation.Autowired;

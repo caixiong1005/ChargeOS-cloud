@@ -62,11 +62,10 @@ CREATE TABLE IF NOT EXISTS seata.distributed_lock (
   PRIMARY KEY (lock_key)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
--- ---------------- 业务库 undo_log ----------------
-CREATE DATABASE IF NOT EXISTS hcp_cloud DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-CREATE DATABASE IF NOT EXISTS vhcp_config DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+-- ---------------- 业务库 undo_log（业务库统一为 vctgo_platform；配置库 vhcp_config 为 Nacos 配置库，不参与分布式事务） ----------------
+CREATE DATABASE IF NOT EXISTS vctgo_platform DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS hcp_cloud.undo_log (
+CREATE TABLE IF NOT EXISTS vctgo_platform.undo_log (
   id            BIGINT       NOT NULL AUTO_INCREMENT,
   branch_id     BIGINT       NOT NULL,
   xid           VARCHAR(128) NOT NULL,
@@ -78,6 +77,3 @@ CREATE TABLE IF NOT EXISTS hcp_cloud.undo_log (
   PRIMARY KEY (id),
   UNIQUE KEY ux_undo_log (xid, branch_id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
-
-CREATE TABLE IF NOT EXISTS vctgo_platform.undo_log LIKE hcp_cloud.undo_log;
-CREATE TABLE IF NOT EXISTS vhcp_config.undo_log LIKE hcp_cloud.undo_log;

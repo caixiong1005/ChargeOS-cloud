@@ -36,7 +36,7 @@ import com.hcp.common.core.text.Convert;
 import com.hcp.common.core.utils.ServletUtils;
 import com.hcp.common.mybatisplus.constant.MybatisPageConstants;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * 充电桩Service业务层处理

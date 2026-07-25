@@ -3,7 +3,7 @@ package com.hcp.gateway.service.impl;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import javax.imageio.ImageIO;
 
 import com.hcp.common.core.constant.CacheConstants;
