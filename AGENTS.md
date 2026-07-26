@@ -23,4 +23,4 @@ Java 17 + Spring Boot 3.2.4 + Spring Cloud 2023.0.1 + Spring Cloud Alibaba 2023.
 - 分支 `feature/jwt-upgrade-0.11`：进行 JWT 升级（JWT_SECRET 外部化、密钥改由环境变量注入）。1 个本地 commit 未推送，若干文件未提交（pom/网关/模块）。
 - 已知约束：`hcp-register` 与 SB3 reactor 不兼容，维持现状单独构建。
 - 待办：完成 JWT 升级联调验证 → 推送分支 → 同步前端/小程序对接。
-- 文档已校正（见 README）：运行环境原写 JDK1.8（实为 Java 17）；部署段原写 SCA 2021.0.5.0/nacos 2.1.1（实为 2023.0.1.0/2.3.2）。另：docker Nacos server 2.1.1 与微服务 client 2.3.2 版本错配待核对。
+- 文档已校正（见 README）：运行环境原写 JDK1.8（实为 Java 17）；部署段原写 SCA 2021.0.5.0/nacos 2.1.1（实为 2023.0.1.0/2.3.2）。Nacos server 镜像已从 2.1.1 对齐到 2.3.2（docker/docker-compose.yml、docker-compose-infra.yml、docker/nacos/dockerfile），与微服务 nacos-client 2.3.2 一致，gRPC 端口 9848/9849 不变。

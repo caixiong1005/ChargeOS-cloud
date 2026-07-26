@@ -1,5 +1,5 @@
-# 基础镜像：锁定 2.1.x（与微服务 nacos-client 由 spring-cloud-alibaba 2021.0.5.0 管理为 2.1.x 对齐，见 pom.xml 的 alibaba.nacos.version）
-FROM nacos/nacos-server:2.1.1
+# 基础镜像：锁定 2.3.x（与微服务 nacos-client 由 spring-cloud-alibaba 2023.0.1.0 管理为 2.3.x 对齐，见 pom.xml 的 alibaba.nacos.version）
+FROM nacos/nacos-server:2.3.2
 # author
 MAINTAINER hcp
 

@@ -74,8 +74,8 @@ services:
   # ----------------------------------------------------------------- Nacos ----
   hcp-nacos:
     container_name: hcp-nacos
-    # 务必与微服务使用的 nacos-client 版本保持一致（nacos-client 由 spring-cloud-alibaba 2021.0.5.0 管理为 2.1.x，见 pom.xml 的 alibaba.nacos.version=2.1.1），否则 gRPC 协议不兼容
-    image: nacos/nacos-server:2.1.1
+    # 务必与微服务使用的 nacos-client 版本保持一致（nacos-client 由 spring-cloud-alibaba 2023.0.1.0 管理为 2.3.x，见 pom.xml 的 alibaba.nacos.version=2.3.2），否则 gRPC 协议不兼容
+    image: nacos/nacos-server:2.3.2
     environment:
       - MODE=standalone
       # —— 安全加固（呼应 P2）：开启 Nacos 鉴权 ——

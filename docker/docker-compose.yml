@@ -8,7 +8,7 @@ networks:
 services:
   hcp-nacos:
     container_name: hcp-nacos
-    image: nacos/nacos-server:2.1.1
+    image: nacos/nacos-server:2.3.2
     build:
       context: ./nacos
     environment:
