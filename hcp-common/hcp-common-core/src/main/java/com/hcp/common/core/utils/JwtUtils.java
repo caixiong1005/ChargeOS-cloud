@@ -8,7 +8,6 @@ import com.hcp.common.core.text.Convert;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
@@ -72,8 +71,8 @@ public class JwtUtils
     public static String createToken(Map<String, Object> claims)
     {
         return Jwts.builder()
-                .setClaims(claims)
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .claims(claims)
+                .signWith(getSigningKey())
                 .compact();
     }
 
@@ -87,11 +86,11 @@ public class JwtUtils
     {
         try
         {
-            return Jwts.parserBuilder()
-                    .setSigningKey(getSigningKey())
+            return Jwts.parser()
+                    .verifyWith(getSigningKey())
                     .build()
-                    .parseClaimsJws(token)
-                    .getBody();
+                    .parseSignedClaims(token)
+                    .getPayload();
         }
         catch (JwtException | IllegalArgumentException e)
         {
@@ -120,6 +119,21 @@ public class JwtUtils
     public static String getDeptId(String token)
     {
         Claims claims = parseToken(token);
+        return getValue(claims, SecurityConstants.DETAILS_DEPT_ID);
+    }
+
+    public static String getUserId(Claims claims)
+    {
+        return getValue(claims, SecurityConstants.DETAILS_USER_ID);
+    }
+
+    public static String getUserName(Claims claims)
+    {
+        return getValue(claims, SecurityConstants.DETAILS_USERNAME);
+    }
+
+    public static String getDeptId(Claims claims)
+    {
         return getValue(claims, SecurityConstants.DETAILS_DEPT_ID);
     }
 

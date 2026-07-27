@@ -20,7 +20,7 @@ Java 17 + Spring Boot 3.2.4 + Spring Cloud 2023.0.1 + Spring Cloud Alibaba 2023.
 - 数据库：`vctgo_platform`(业务)、`vhcp_config`(Nacos 配置)、`seata`。
 
 ## 当前状态与下一步
-- 分支 `feature/jwt-upgrade-0.11`：进行 JWT 升级（JWT_SECRET 外部化、密钥改由环境变量注入）。1 个本地 commit 未推送，若干文件未提交（pom/网关/模块）。
+- 分支 `feature/jwt-upgrade-0.11`：JWT 升级已完成并**推送远程**（JWT_SECRET 外部化、密钥改由环境变量注入；含 Nacos server 镜像对齐 2.3.2）。工作树干净，与 origin 同步。
 - 已知约束：`hcp-register` 与 SB3 reactor 不兼容，维持现状单独构建。
-- 待办：完成 JWT 升级联调验证 → 推送分支 → 同步前端/小程序对接。
+- 联调验证：JWT 验签链路已用已编译 `JwtUtils` 做 auth↔gateway 跨服务往返测试（错密钥/篡改 token 拒签、缺密钥/弱密钥抛异常均 PASS）；**全栈 E2E 登录联调未跑通**——本机 Docker Desktop 引擎 500 + 需登录账号（注册不了），阻塞基础设施。待选免账号容器运行时（Rancher Desktop / Podman Desktop）或原生 MySQL/Redis/Nacos standalone 后继续；之后同步前端/小程序对接。
 - 文档已校正（见 README）：运行环境原写 JDK1.8（实为 Java 17）；部署段原写 SCA 2021.0.5.0/nacos 2.1.1（实为 2023.0.1.0/2.3.2）。Nacos server 镜像已从 2.1.1 对齐到 2.3.2（docker/docker-compose.yml、docker-compose-infra.yml、docker/nacos/dockerfile），与微服务 nacos-client 2.3.2 一致，gRPC 端口 9848/9849 不变。

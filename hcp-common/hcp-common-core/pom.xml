@@ -66,22 +66,24 @@
             <artifactId>fastjson2</artifactId>
         </dependency>
 
-        <!-- Jwt (显式锁定 0.11.5：分支代码使用 0.11 API，避免被 BOM 管理回 0.9.x) -->
+        <!-- Jwt (0.12.6：0.11.x 运行时缺少 io.jsonwebtoken.security.SecureDigestAlgorithm，
+             导致网关 Jwts.parserBuilder() 解析 JWT 报 ClassNotFoundException；0.12.x 含该类且
+             与分支代码所用的 Jwts.builder()/parserBuilder()/io.jsonwebtoken.SignatureAlgorithm API 兼容) -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
-            <version>0.11.5</version>
+            <version>0.12.6</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
-            <version>0.11.5</version>
+            <version>0.12.6</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
-            <version>0.11.5</version>
+            <version>0.12.6</version>
             <scope>runtime</scope>
         </dependency>
 

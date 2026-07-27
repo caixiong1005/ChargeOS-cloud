@@ -66,7 +66,7 @@
         <commons.io.version>2.13.0</commons.io.version>
         <velocity.version>2.3</velocity.version>
         <fastjson.version>2.0.43</fastjson.version>
-        <jjwt.version>0.11.5</jjwt.version>
+        <jjwt.version>0.12.6</jjwt.version>
         <poi.version>4.1.2</poi.version>
         <transmittable-thread-local.version>2.14.4</transmittable-thread-local.version>
         <oshi.version>6.1.2</oshi.version>
@@ -150,6 +150,16 @@
 <!--                <artifactId>mybatis-spring-boot-starter</artifactId>-->
 <!--                <version>${spring-boot.mybatis}</version>-->
 <!--            </dependency>-->
+
+            <!-- 修复 mybatis-spring 2.1.2 与 Spring Framework 6.1.5 不兼容:
+                 MapperScannerConfigurer 将 factoryBeanObjectType 属性设为 String, 触发
+                 IllegalArgumentException: Invalid value type for attribute 'factoryBeanObjectType'.
+                 dynamic-datasource / mybatis-plus 传递依赖默认会拉到 2.1.2, 强制升到 3.0.6(已修复). -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>3.0.6</version>
+            </dependency>
 
 
 
