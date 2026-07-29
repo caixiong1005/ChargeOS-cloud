@@ -242,7 +242,7 @@ Redis
 
 项目版本与 `pom.xml` 的 `<version>`（当前 `1.2.2`）保持一致。Docker 部署相关约定：
 
-- **Nacos 版本**：docker 编排中 `nacos/nacos-server` 固定为 `2.1.1`（`docker/nacos/dockerfile`、`docker-compose*.yml`），而微服务侧 `nacos-client` 由 `pom.xml` 的 `alibaba.nacos.version=2.3.2`（`spring-cloud-alibaba 2023.0.1.0` 管理）引入。⚠️ 两者版本不一致（server 2.1.1 / client 2.3.2），部署前需核对 gRPC 兼容性。
+- **Nacos 版本**：docker 编排中 `nacos/nacos-server` 固定为 `2.3.2`（`docker/nacos/dockerfile`、`docker-compose*.yml`），与微服务侧 `nacos-client` 由 `pom.xml` 的 `alibaba.nacos.version=2.3.2`（`spring-cloud-alibaba 2023.0.1.0` 管理）引入的版本**一致**，gRPC 端口 9848/9849 不变。
 - **密钥外部化（无明文默认值）**：`docker-compose*.yml` 中所有口令/密钥（MySQL/Redis 口令、Nacos 鉴权 token 与身份标识、JWT 密钥）均通过 `${VAR}` 从 `.env` 读取，**文件内不再保留任何明文默认值**。
   - 部署前执行 `cp docker/.env.example docker/.env`，并把占位值替换为随机强口令（`openssl rand -base64 32`）。
   - 真实 `.env` 已被 `.gitignore` 忽略，**切勿提交**；仅 `docker/.env.example` 作为模板入库。
