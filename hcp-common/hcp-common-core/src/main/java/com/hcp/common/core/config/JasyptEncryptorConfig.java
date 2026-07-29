@@ -71,6 +71,9 @@ public class JasyptEncryptorConfig {
         config.setPoolSize(POOL_SIZE);
         config.setProviderName(PROVIDER);
         config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
+        // AES(PBEWITHHMACSHA512ANDAES_256) 必须显式指定随机 IV 生成器；否则 jasypt 默认退化为
+        // 空 IV(NoIvGenerator)，对 AES 算法既无法加密又会因 IV 不匹配导致解密失败。
+        config.setIvGeneratorClassName("org.jasypt.iv.RandomIvGenerator");
         config.setStringOutputType(OUTPUT_TYPE);
         encryptor.setConfig(config);
         return encryptor;

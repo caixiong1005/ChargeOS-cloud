@@ -17,9 +17,9 @@ import org.springframework.context.annotation.Configuration;
 public class CaptchaProperties
 {
     /**
-     * 验证码开关
+     * 验证码开关（缺省默认开启，避免配置缺失时 !null 触发 NPE 且保持安全默认）
      */
-    private Boolean enabled;
+    private Boolean enabled = true;
 
     /**
      * 验证码类型（math 数组计算 char 字符）
