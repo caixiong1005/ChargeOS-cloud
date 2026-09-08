@@ -42,9 +42,7 @@ import org.springframework.stereotype.Service;
 import com.hcp.operator.service.IChargingOrderService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hcp.common.core.text.Convert;
-import com.hcp.common.core.utils.ServletUtils;
-import com.hcp.common.mybatisplus.constant.MybatisPageConstants;
+import com.hcp.common.mybatisplus.utils.PageUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -70,6 +68,9 @@ public class ChargingOrderServiceImpl implements IChargingOrderService
     @Autowired
     private RemoteSimulatorService simulatorService;
 
+    /** 订单日志主流程默认值 */
+    private static final Long DEFAULT_MAIN_PROCESS = 1L;
+
     /**
      * 查询充电订单
      *
@@ -85,8 +86,10 @@ public class ChargingOrderServiceImpl implements IChargingOrderService
     public AjaxResult selectChargingOrderByOrderNumber(String orderNumber)
     {
         ChargingOrder order = chargingOrderMapper.selectChargingOrderByOrderNumber(orderNumber);
-        if(Objects.isNull(order)){
-            AjaxResult.error("订单不存在");
+        if (Objects.isNull(order))
+        {
+            // 原实现仅调用了 error(...) 却未返回，order 为 null 时下方 setLogList 会 NPE
+            return AjaxResult.error("订单不存在");
         }
         // 查询订单日志数据
         List<OrderLog> logList = orderLogMapper.selectOrderLogListByOrderNumber(orderNumber);
@@ -106,8 +109,7 @@ public class ChargingOrderServiceImpl implements IChargingOrderService
     @Override
     public IPage<ChargingOrder> selectChargingOrderPage(ChargingOrder chargingOrder)
     {
-        Page mpPage =new Page(Convert.toLong(ServletUtils.getParameterToInt(MybatisPageConstants.PAGE_NUM),1L)
-                ,Convert.toLong(ServletUtils.getParameterToInt(MybatisPageConstants.PAGE_SIZE),10L));
+        Page<ChargingOrder> mpPage = PageUtils.buildPage();
         return chargingOrderMapper.selectChargingOrderListPage(mpPage,chargingOrder);
     }
     /**
@@ -228,14 +230,7 @@ public class ChargingOrderServiceImpl implements IChargingOrderService
         chargingOrder.setHour(String.valueOf(hour));
         chargingOrder.setTenantId(chargingPort.getTenantId());
         chargingOrderMapper.insertOrder(chargingOrder);
-        OrderLog orderLog = new OrderLog();
-        orderLog.setOrderNumber(orderNumber);
-        orderLog.setMainProcess(1L);
-        orderLog.setBriefInfo("客户下单");
-        orderLog.setLogContent("用户下单");
-        orderLog.setTenantId(chargingPort.getTenantId());
-        orderLog.setCreateTime(new Date());
-        orderLogMapper.insertOrderLog(orderLog);
+        appendOrderLog(orderNumber, chargingPort.getTenantId(), "客户下单", "用户下单");
         //启动模拟器充电
         chargingOrder.setDeviceId(port);
         R<String> stringR = simulatorService.startCharge(chargingOrder);
@@ -251,14 +246,7 @@ public class ChargingOrderServiceImpl implements IChargingOrderService
         ChargingOrder  order = chargingOrderMapper.findChargingOrder(pileId,chargingPort.getPortId(),ChargeStatus.CHARGING);
         Assert.notNull(order,"充电中订单信息未找到");
         chargingOrderMapper.updateByPrimaryKey(order);
-        OrderLog orderLog = new OrderLog();
-        orderLog.setOrderNumber(order.getOrderNumber());
-        orderLog.setMainProcess(1L);
-        orderLog.setBriefInfo("客户结束充电");
-        orderLog.setLogContent("用户手动结束充电,结算中");
-        orderLog.setTenantId(chargingPort.getTenantId());
-        orderLog.setCreateTime(new Date());
-        orderLogMapper.insertOrderLog(orderLog);
+        appendOrderLog(order.getOrderNumber(), chargingPort.getTenantId(), "客户结束充电", "用户手动结束充电,结算中");
         R<String> stringR = simulatorService.stopCharge(pileId, port);
         log.info("模拟器停止充电结果:{}", JSONObject.toJSONString(stringR));
     }
@@ -279,14 +267,7 @@ public class ChargingOrderServiceImpl implements IChargingOrderService
         order.setPayTime(new Date());
         order.setRealEndTime(DateUtil.parseDateTime(endTime));
         chargingOrderMapper.updateByPrimaryKey(order);
-        OrderLog orderLog = new OrderLog();
-        orderLog.setOrderNumber(order.getOrderNumber());
-        orderLog.setMainProcess(1L);
-        orderLog.setBriefInfo("完成订单");
-        orderLog.setLogContent("已完成订单,消费金额:"+totalAmount);
-        orderLog.setTenantId(order.getTenantId());
-        orderLog.setCreateTime(new Date());
-        orderLogMapper.insertOrderLog(orderLog);
+        appendOrderLog(order.getOrderNumber(), order.getTenantId(), "完成订单", "已完成订单,消费金额:" + totalAmount);
     }
 
     @Override
@@ -295,14 +276,8 @@ public class ChargingOrderServiceImpl implements IChargingOrderService
         Assert.notNull(order,"订单信息为空");
         order.setChargeStatus(ChargeStatus.CHARGING);
         chargingOrderMapper.updateByPrimaryKey(order);
-        OrderLog orderLog = new OrderLog();
-        orderLog.setOrderNumber(order.getOrderNumber());
-        orderLog.setMainProcess(1L);
-        orderLog.setCreateTime(new Date());
-        orderLog.setBriefInfo("开始充电");
-        orderLog.setLogContent("远程充电启动，启动结果:"+startResult+",失败原因:"+failReason);
-        orderLog.setTenantId(order.getTenantId());
-        orderLogMapper.insertOrderLog(orderLog);
+        appendOrderLog(order.getOrderNumber(), order.getTenantId(), "开始充电",
+                "远程充电启动，启动结果:" + startResult + ",失败原因:" + failReason);
     }
 
     @Override
@@ -314,14 +289,8 @@ public class ChargingOrderServiceImpl implements IChargingOrderService
         order.setEndTime(LocalDateTimeUtil.format(LocalDateTime.now(),"yyyy-MM-dd HH:mm:ss"));
         order.setOrderState(OrderState.SETTLE);
         chargingOrderMapper.updateByPrimaryKey(order);
-        OrderLog orderLog = new OrderLog();
-        orderLog.setOrderNumber(order.getOrderNumber());
-        orderLog.setMainProcess(1L);
-        orderLog.setCreateTime(new Date());
-        orderLog.setBriefInfo("充电结束");
-        orderLog.setLogContent("远程充电结束，关闭结果:"+stopResult+",失败原因:"+failReason);
-        orderLog.setTenantId(order.getTenantId());
-        orderLogMapper.insertOrderLog(orderLog);
+        appendOrderLog(order.getOrderNumber(), order.getTenantId(), "充电结束",
+                "远程充电结束，关闭结果:" + stopResult + ",失败原因:" + failReason);
     }
 
     @Override
@@ -353,5 +322,25 @@ public class ChargingOrderServiceImpl implements IChargingOrderService
     public Page<ChargingOrder> queryOrderList(ChargingOrder chargingOrder) {
         Page mpPage =new Page(chargingOrder.getPageNo(),chargingOrder.getPageSize());
         return chargingOrderMapper.selectChargingOrderListPage(mpPage,chargingOrder);
+    }
+
+    /**
+     * 记录订单流转日志
+     *
+     * @param orderNumber 订单号
+     * @param tenantId 租户ID
+     * @param briefInfo 日志摘要
+     * @param logContent 日志内容
+     */
+    private void appendOrderLog(String orderNumber, Long tenantId, String briefInfo, String logContent)
+    {
+        OrderLog orderLog = new OrderLog();
+        orderLog.setOrderNumber(orderNumber);
+        orderLog.setMainProcess(DEFAULT_MAIN_PROCESS);
+        orderLog.setBriefInfo(briefInfo);
+        orderLog.setLogContent(logContent);
+        orderLog.setTenantId(tenantId);
+        orderLog.setCreateTime(new Date());
+        orderLogMapper.insertOrderLog(orderLog);
     }
 }

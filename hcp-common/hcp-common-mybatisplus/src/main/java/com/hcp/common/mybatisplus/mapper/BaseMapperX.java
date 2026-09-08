@@ -10,10 +10,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hcp.common.core.text.Convert;
-import com.hcp.common.core.utils.ServletUtils;
 import com.hcp.common.core.web.page.SortingField;
-import com.hcp.common.mybatisplus.constant.MybatisPageConstants;
+import com.hcp.common.mybatisplus.utils.PageUtils;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -29,15 +27,13 @@ public interface BaseMapperX<T> extends BaseMapper<T> {
 
     default IPage<T> selectPage( @Param("ew") Wrapper<T> queryWrapper) {
         // MyBatis Plus 查询
-        Page<T> mpPage =new Page(Convert.toLong(ServletUtils.getParameterToInt(MybatisPageConstants.PAGE_NUM),1L)
-                ,Convert.toLong(ServletUtils.getParameterToInt(MybatisPageConstants.PAGE_SIZE),10L));
+        Page<T> mpPage = PageUtils.buildPage();
         return selectPage(mpPage, queryWrapper);
     }
 
     default IPage<T> selectPage( @Param("ew") Wrapper<T> queryWrapper,Collection<SortingField> sortingFields) {
         // MyBatis Plus 查询
-        Page<T> mpPage =new Page(Convert.toLong(ServletUtils.getParameterToInt(MybatisPageConstants.PAGE_NUM),1L)
-                ,Convert.toLong(ServletUtils.getParameterToInt(MybatisPageConstants.PAGE_SIZE),10L));
+        Page<T> mpPage = PageUtils.buildPage();
         if (!CollectionUtil.isEmpty(sortingFields)) {
             mpPage.addOrder(sortingFields.stream().map(sortingField -> SortingField.ORDER_ASC.equals(sortingField.getOrder()) ?
                             OrderItem.asc(sortingField.getField()) : OrderItem.desc(sortingField.getField()))
