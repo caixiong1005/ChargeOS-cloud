@@ -128,7 +128,7 @@ services:
       - JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
       - JASYPT_ENCRYPTOR_PASSWORD_PREV=${JASYPT_ENCRYPTOR_PASSWORD_PREV:-}
       # 限制堆大小：不限制时 JVM 默认按物理内存 25% 取 MaxHeap，多服务并存必然 OOM
-      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-768m}
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-384m}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.5
@@ -152,7 +152,7 @@ services:
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
       - JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
       - JASYPT_ENCRYPTOR_PASSWORD_PREV=${JASYPT_ENCRYPTOR_PASSWORD_PREV:-}
-      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-768m}
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-384m}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.7
@@ -169,7 +169,6 @@ services:
     links:
       - hcp-redis
       - hcp-mysql
-      - hcp-file
     environment:
       - NACOS_HOST=172.18.0.6
       - NACOS_PORT=8848
@@ -179,12 +178,13 @@ services:
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
       - JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
       - JASYPT_ENCRYPTOR_PASSWORD_PREV=${JASYPT_ENCRYPTOR_PASSWORD_PREV:-}
-      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-768m}
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-384m}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.8
   hcp-gen:
     container_name: hcp-gen
+    profiles: ["full"]
     build:
       context: hcp/modules/gen
       dockerfile: dockerfile
@@ -209,6 +209,7 @@ services:
         ipv4_address: 172.18.0.9
   hcp-file:
     container_name: hcp-file
+    profiles: ["full"]
     build:
       context: hcp/modules/file
       dockerfile: dockerfile
@@ -231,6 +232,7 @@ services:
         ipv4_address: 172.18.0.10
   hcp-monitor:
     container_name: hcp-monitor
+    profiles: ["full"]
     build:
       context: hcp/visual/monitor
       dockerfile: dockerfile
@@ -251,6 +253,7 @@ services:
         ipv4_address: 172.18.0.11
   hcp-demo:
     container_name: hcp-demo
+    profiles: ["full"]
     build:
       context: hcp/demo
       dockerfile: dockerfile
@@ -278,6 +281,7 @@ services:
         ipv4_address: 172.18.0.12
   hcp-job:
     container_name: hcp-job
+    profiles: ["full"]
     build:
       context: hcp/modules/job
       dockerfile: dockerfile
@@ -324,13 +328,14 @@ services:
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
       - JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
       - JASYPT_ENCRYPTOR_PASSWORD_PREV=${JASYPT_ENCRYPTOR_PASSWORD_PREV:-}
-      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-768m}
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-384m}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.18
 
   hcp-mp:
     container_name: hcp-mp
+    profiles: ["full"]
     build:
       context: hcp/modules/mp
       dockerfile: dockerfile
@@ -358,6 +363,7 @@ services:
 
   hcp-simulator:
     container_name: hcp-simulator
+    profiles: ["full"]
     build:
       context: hcp/modules/simulator
       dockerfile: dockerfile
@@ -384,6 +390,7 @@ services:
   # ---------------- 可观测性 & 分布式事务编排 ----------------
   hcp-seata:
     container_name: hcp-seata
+    profiles: ["full"]
     image: seataio/seata-server:2.0.0
     ports:
       - "8091:8091"
@@ -421,6 +428,7 @@ services:
 
   hcp-zipkin:
     container_name: hcp-zipkin
+    profiles: ["full"]
     image: openzipkin/zipkin:2
     ports:
       - "127.0.0.1:9411:9411"
@@ -430,6 +438,7 @@ services:
 
   hcp-prometheus:
     container_name: hcp-prometheus
+    profiles: ["full"]
     image: prom/prometheus:v2.51.0
     volumes:
       - ./prometheus:/etc/prometheus
@@ -441,6 +450,7 @@ services:
 
   hcp-grafana:
     container_name: hcp-grafana
+    profiles: ["full"]
     image: grafana/grafana:10.4.0
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
