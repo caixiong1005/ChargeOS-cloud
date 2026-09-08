@@ -93,7 +93,8 @@ services:
     build:
       context: ./nginx
     ports:
-      - "8001:8001"
+      # nginx.conf 内监听 80，映射必须与之一致（原 8001 与容器内 listen 不符导致无法访问）
+      - "80:80"
     volumes:
       - ./nginx/html/dist:/home/hcp/projects/hcp-ui
       - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
@@ -126,6 +127,8 @@ services:
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
       - JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
       - JASYPT_ENCRYPTOR_PASSWORD_PREV=${JASYPT_ENCRYPTOR_PASSWORD_PREV:-}
+      # 限制堆大小：不限制时 JVM 默认按物理内存 25% 取 MaxHeap，多服务并存必然 OOM
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-768m}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.5
@@ -149,6 +152,7 @@ services:
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
       - JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
       - JASYPT_ENCRYPTOR_PASSWORD_PREV=${JASYPT_ENCRYPTOR_PASSWORD_PREV:-}
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-768m}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.7
@@ -175,6 +179,7 @@ services:
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
       - JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
       - JASYPT_ENCRYPTOR_PASSWORD_PREV=${JASYPT_ENCRYPTOR_PASSWORD_PREV:-}
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-768m}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.8
@@ -198,6 +203,7 @@ services:
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
       - JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
       - JASYPT_ENCRYPTOR_PASSWORD_PREV=${JASYPT_ENCRYPTOR_PASSWORD_PREV:-}
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-512m}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.9
@@ -219,6 +225,7 @@ services:
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
       - JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
       - JASYPT_ENCRYPTOR_PASSWORD_PREV=${JASYPT_ENCRYPTOR_PASSWORD_PREV:-}
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-512m}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.10
@@ -238,6 +245,7 @@ services:
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
       - JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
       - JASYPT_ENCRYPTOR_PASSWORD_PREV=${JASYPT_ENCRYPTOR_PASSWORD_PREV:-}
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-512m}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.11
@@ -264,6 +272,7 @@ services:
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
       - JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
       - JASYPT_ENCRYPTOR_PASSWORD_PREV=${JASYPT_ENCRYPTOR_PASSWORD_PREV:-}
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-512m}
     networks:
       cloud-net:
         ipv4_address: 172.18.0.12
@@ -290,9 +299,87 @@ services:
       - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
       - JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
       - JASYPT_ENCRYPTOR_PASSWORD_PREV=${JASYPT_ENCRYPTOR_PASSWORD_PREV:-}
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-512m}
+
+  # ---------------- 充电业务模块（原 compose 缺失，补齐） ----------------
+  hcp-operator:
+    container_name: hcp-operator
+    build:
+      context: hcp/modules/operator
+      dockerfile: dockerfile
+    ports:
+      - "39206:39206"
+    depends_on:
+      - hcp-redis
+      - hcp-mysql
+    links:
+      - hcp-redis
+      - hcp-mysql
+    environment:
+      - NACOS_HOST=172.18.0.6
+      - NACOS_PORT=8848
+      - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - JWT_SECRET=${JWT_SECRET}
+      - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
+      - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
+      - JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
+      - JASYPT_ENCRYPTOR_PASSWORD_PREV=${JASYPT_ENCRYPTOR_PASSWORD_PREV:-}
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-768m}
     networks:
       cloud-net:
-        ipv4_address: 172.18.0.13
+        ipv4_address: 172.18.0.18
+
+  hcp-mp:
+    container_name: hcp-mp
+    build:
+      context: hcp/modules/mp
+      dockerfile: dockerfile
+    ports:
+      - "39207:39207"
+    depends_on:
+      - hcp-redis
+      - hcp-mysql
+    links:
+      - hcp-redis
+      - hcp-mysql
+    environment:
+      - NACOS_HOST=172.18.0.6
+      - NACOS_PORT=8848
+      - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - JWT_SECRET=${JWT_SECRET}
+      - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
+      - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
+      - JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
+      - JASYPT_ENCRYPTOR_PASSWORD_PREV=${JASYPT_ENCRYPTOR_PASSWORD_PREV:-}
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-768m}
+    networks:
+      cloud-net:
+        ipv4_address: 172.18.0.19
+
+  hcp-simulator:
+    container_name: hcp-simulator
+    build:
+      context: hcp/modules/simulator
+      dockerfile: dockerfile
+    ports:
+      - "39208:39208"
+    depends_on:
+      - hcp-mysql
+    links:
+      - hcp-mysql
+    environment:
+      - NACOS_HOST=172.18.0.6
+      - NACOS_PORT=8848
+      - NETWORK_IP=${DEPLOY_IP:-192.168.1.4}
+      - JWT_SECRET=${JWT_SECRET}
+      - NACOS_USERNAME=${NACOS_USERNAME:-nacos}
+      - NACOS_PASSWORD=${NACOS_PASSWORD:-nacos}
+      - JASYPT_ENCRYPTOR_PASSWORD=${JASYPT_ENCRYPTOR_PASSWORD}
+      - JASYPT_ENCRYPTOR_PASSWORD_PREV=${JASYPT_ENCRYPTOR_PASSWORD_PREV:-}
+      - JAVA_TOOL_OPTIONS=-Xms256m -Xmx${JVM_XMX:-512m}
+    networks:
+      cloud-net:
+        ipv4_address: 172.18.0.20
 
   # ---------------- 可观测性 & 分布式事务编排 ----------------
   hcp-seata:
