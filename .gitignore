@@ -64,3 +64,20 @@ dump.rdb
 node_modules/
 hcp-mini/node_modules/
 hcp-mini/unpackage/
+
+# -------------------- 本地构建 / 部署产物（非源码，勿入库） --------------------
+# 构建辅助脚本与日志
+build_local.bat
+build_local.err
+build_local.log
+copy_jars.bat
+deploy_db.sh
+deploy_pkg.bat
+deploy_step.log
+gen_env.sh
+gen_patch.sh
+chargeos.tar.gz
+# 本地构建后拷入 docker 上下文的微服务 jar
+docker/hcp/**/jar/*.jar
+# nginx 托管的前端构建产物
+docker/nginx/html/dist/
