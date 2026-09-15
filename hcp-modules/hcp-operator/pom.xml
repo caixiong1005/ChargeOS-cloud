@@ -37,6 +37,17 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+            <exclusions>
+                <!-- operator 是 servlet(Tomcat) 应用：sentinel 的 webflux-adapter 会拉入
+                     spring-boot-starter-undertow 及其 JSR-356 WebSocket 实现，和
+                     tomcat-embed-websocket 冲突，导致 Tomcat 的 WsSci 无法注册
+                     jakarta.websocket.server.ServerContainer，ServerEndpointExporter
+                     启动即抛 "ServerContainer not available"。servlet 应用用不到 webflux 适配器，排除之。 -->
+                <exclusion>
+                    <groupId>com.alibaba.csp</groupId>
+                    <artifactId>sentinel-spring-webflux-adapter</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- SpringBoot Actuator -->
@@ -62,6 +73,17 @@
         <dependency>
             <groupId>com.zkhz</groupId>
             <artifactId>hcp-common-datasource</artifactId>
+            <exclusions>
+                <!-- dynamic-datasource-spring-boot3-starter 会传递拉入 spring-boot-starter-undertow
+                     及其 JSR-356 WebSocket 实现，与 operator 的 servlet(Tomcat) 容器冲突，
+                     导致 Tomcat 的 WsSci 无法注册 jakarta.websocket.server.ServerContainer，
+                     ServerEndpointExporter 启动即抛 "ServerContainer not available"。operator 是
+                     servlet 应用、用 Tomcat 的 websocket，故排除 undertow。 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-undertow</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- hcp Common DataScope -->

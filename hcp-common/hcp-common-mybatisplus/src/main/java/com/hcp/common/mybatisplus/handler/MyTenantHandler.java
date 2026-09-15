@@ -45,6 +45,10 @@ public class MyTenantHandler implements TenantLineHandler {
      */
     @Override
     public boolean ignoreTable(String tableName) {
+        // c_city 为公共省市表,无 tenant_id 列,直接忽略租户(配置 ignore-tables 透传不到继承的 BaseMapper 方法)
+        if ("c_city".equals(tableName)) {
+            return true;
+        }
         return properties.getIgnoreTables().contains(tableName);
     }
 }

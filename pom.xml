@@ -502,11 +502,28 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <!-- 关键修复：保留方法参数名，否则 Spring MVC 对裸 @RequestParam/@PathVariable 解析报
+                         "Name for argument ... Ensure that the compiler uses the '-parameters' flag" -->
+                    <parameters>true</parameters>
                 </configuration>
             </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.13.0</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <!-- 关键修复：保留方法参数名，否则 Spring MVC 对裸 @RequestParam/@PathVariable 解析报
+                             "Name for argument ... Ensure that the compiler uses the '-parameters' flag"。
+                             必须放在 pluginManagement 中，子模块（hcp-system/hcp-operator 等）才会继承该配置。 -->
+                        <parameters>true</parameters>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
